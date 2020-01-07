@@ -1,5 +1,6 @@
 package gameClient;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -9,9 +10,9 @@ import org.json.JSONObject;
 
 import Server.Game_Server;
 import Server.game_service;
-import dataStructure.DGraph;
-import dataStructure.edge_data;
-import dataStructure.graph;
+import dataStructure_ex3.DGraph;
+import dataStructure_ex3.edge_data;
+import dataStructure_ex3.graph;
 /**
  * This class represents a simple example for using the GameServer API:
  * the main file performs the following tasks:
@@ -36,7 +37,12 @@ public class SimpleGameClient {
 		game_service game = Game_Server.getServer(2); // you have [0,23] games
 		String g = game.getGraph();
 		DGraph gg = new DGraph();
-		gg.init(g);
+		try {
+			gg.init(g);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		String info = game.toString();
 		System.out.println(info);
 		System.out.println(g);
