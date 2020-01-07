@@ -10,9 +10,13 @@ import org.json.JSONObject;
 
 import Server.Game_Server;
 import Server.game_service;
+import dataStructure_ex3.node_data;
 import dataStructure_ex3.DGraph;
+import dataStructure_ex3.Node;
 import dataStructure_ex3.edge_data;
 import dataStructure_ex3.graph;
+import gui.Game_GUI;
+import utils.Point3D;
 /**
  * This class represents a simple example for using the GameServer API:
  * the main file performs the following tasks:
@@ -29,13 +33,20 @@ import dataStructure_ex3.graph;
  * @author boaz.benmoshe
  *
  */
-public class SimpleGameClient {
+public class temp {
 	public static void main(String[] a) {
 		
-		test1();
+//		
+//		node_data t = new Node(1,new Point3D(1.0,2.0,3.0));
+//		
+//		DGraph p = new DGraph();
+//		p.addNode((dataStructure_ex3.node_data) t);
+		Game_GUI p2 = new Game_GUI();
+		System.out.println();
+//		test1();
 	}
 	public static void test1() {
-		game_service game = Game_Server.getServer(2); // you have [0,23] games
+		game_service game = Game_Server.getServer(23); // you have [0,23] games
 		String g = game.getGraph();
 		DGraph gg = new DGraph();
 		try {
@@ -44,6 +55,8 @@ public class SimpleGameClient {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+	
 		String info = game.toString();
 		System.out.println(info);
 		System.out.println(g);

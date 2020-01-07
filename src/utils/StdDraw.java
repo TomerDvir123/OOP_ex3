@@ -76,13 +76,17 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+import Server.Game_Server;
+import Server.game_service;
 import algorithms_ex3.Graph_Algo;
 import dataStructure_ex3.DGraph;
 import dataStructure_ex3.Node;
 import dataStructure_ex3.graph;
 import dataStructure_ex3.node_data;
+import gui.Game_GUI;
 import gui.Graph_GUI;
 
 /**
@@ -492,7 +496,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 	
 	static Graph_GUI gg;
-	
+	static Game_GUI ff;
+	static boolean Allreadydone=false;
 	/**
 	 *  The color black.
 	 */
@@ -605,7 +610,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 	// boundary of drawing canvas, 0% border
 	// private static final double BORDER = 0.05;
-	private static final double BORDER = 0.01;
+	private static final double BORDER = 0.05;
 	private static final double DEFAULT_XMIN = 0.0;
 	private static final double DEFAULT_XMAX = 1.0;
 	private static final double DEFAULT_YMIN = 0.0;
@@ -731,8 +736,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		JMenu menu = new JMenu("Games");		
 		menuBar.add(menu);
 		JMenuItem menuItem1 = new JMenuItem("Menual");
-		JMenuItem menuItem3 = new JMenuItem("Computer");
 		menuItem1.addActionListener(std);
+		JMenuItem menuItem3 = new JMenuItem("Computer");
 		menuItem3.addActionListener(std);
 		
 		menu.add(menuItem1);
@@ -1458,7 +1463,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		draw();
 	}
 
-
+	public static void changeDone()
+	{
+		Allreadydone = true;
+	}
+	public static boolean getAllready()
+	{
+		return Allreadydone;
+	}
 	/**
 	 * Draws the specified image centered at (<em>x</em>, <em>y</em>), rotated
 	 * given number of degrees, and rescaled to the specified bounding box.
@@ -1702,8 +1714,26 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		String act = e.getActionCommand();
 		switch(act)
 		{
-		case "menual":
-			System.out.println("iii");
+		case "Menual":
+			JFrame jinput = new JFrame();
+			String start = JOptionPane.showInputDialog(jinput,"Choose scenario");
+			int num = Integer.parseInt(start);
+			game_service game = Game_Server.getServer(num); // you have [0,23] games
+			String g = game.getGraph();
+			DGraph gge = new DGraph();
+			try {
+				gge.init(g);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			ff.setG(gge);
+			ff.initGUI();
+//			System.out.println();
+//			draw();
+
+
+
 		break;
 		default : break;
 		}
@@ -1917,7 +1947,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			keysDown.remove(e.getKeyCode());
 		}
 	}
-
+	public static void setGUI(Game_GUI g)
+	{
+		ff = g;
+	}
 
 	public static void setGUI(Graph_GUI g)
 	{
