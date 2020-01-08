@@ -1715,10 +1715,43 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		switch(act)
 		{
 		case "Menual":
+			boolean flag = false;
+			int num = -1;
 			JFrame jinput = new JFrame();
-			String start = JOptionPane.showInputDialog(jinput,"Choose scenario");
-			int num = Integer.parseInt(start);
+			while(!flag)
+			{
+				String start = JOptionPane.showInputDialog(jinput,"Choose scenario");
+				//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				if(start==null) {
+					break;
+				}
+
+
+			try
+			{	
+			num = Integer.parseInt(start);
+			if(num>23 || num <0) 
+			{
+			    JOptionPane.showMessageDialog(jinput, "Enter good Input : only a number 0-23 !   ");
+			   // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+			}
+			else 
+			{
+				flag = true;
+			}
+			}
+			catch (Exception e2)
+			{
+				//e2.printStackTrace();
+				JOptionPane.showMessageDialog(jinput, "Enter good Input : only a number 0-23 !   ");
+				//StdDraw.
+			}
+			}
+			//int num = Integer.parseInt(start);
+			if(num!=-1) {
 			game_service game = Game_Server.getServer(num); // you have [0,23] games
+
 			String g = game.getGraph();
 			DGraph gge = new DGraph();
 			try {
@@ -1731,7 +1764,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			ff.initGUI();
 //			System.out.println();
 //			draw();
-
+			}
+			
 
 
 		break;
