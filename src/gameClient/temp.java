@@ -59,6 +59,7 @@ public class temp {
 		String info = game.toString();
 		System.out.println(info);
 		System.out.println(g);
+		
 		// the list of fruits should be considered in your solution
 		Iterator<String> f_iter = game.getFruits().iterator();
 		while(f_iter.hasNext()) {System.out.println(f_iter.next());}

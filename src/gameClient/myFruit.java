@@ -17,8 +17,10 @@ public class myFruit {
 		//{"Fruit":{"value":5.0,"type":-1,"pos":"35.188900353135324,32.105320110855615,0.0"}}
 		//{"Fruit":[{"value":5.0,"type":-1,"pos":"35.188900353135324,32.105320110855615,0.0"}]}
 		public myFruit(String info) throws JSONException {
-			//String temp  = 
-			int y = info.indexOf("{");
+			String temp = info.substring(1);
+			int y = temp.indexOf("{");
+			info = info.substring(0, y)+":[{"+info.substring(y+2, info.length()-2)+"}]}";
+			
 			
 			JSONObject jsonObject = new JSONObject(info);
 			JSONArray json_fruit =jsonObject.getJSONArray("Fruit");
@@ -26,8 +28,11 @@ public class myFruit {
 			empObj = json_fruit.getJSONObject(0);
 			this.value = (double) empObj.get("value");
 			this.type = (int) empObj.get("type");
+			//this.location = (Point3D)empObj.get("pos");
 			String pos = (String)empObj.get("pos");
 			Point3D loc = new Point3D(pos);
+			this.location=loc;
+			
 	}
 		
 		public double getValue() {

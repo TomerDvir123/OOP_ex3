@@ -1758,6 +1758,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			GamePar now = new GamePar(num);
 			try {
 				now.initFruit(game.getFruits());
+				///////////////////////
+				
+				
+				
+				
+				
+				/////////////////////////
+				
 			} catch (JSONException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
@@ -1769,6 +1777,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			
 			String g = game.getGraph();
 			DGraph gge = new DGraph();
+			
 			try {
 				gge.init(g);
 			} catch (IOException e1) {
