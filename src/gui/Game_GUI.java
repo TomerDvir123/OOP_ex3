@@ -18,11 +18,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
+
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import Server.Fruit;
 import algorithms_ex3.*;
 import dataStructure_ex3.DGraph;
 import dataStructure_ex3.edge_data;
@@ -31,11 +34,13 @@ import dataStructure_ex3.node_data;
 import dataStructure_ex3.*;
 
 
+
 public class Game_GUI implements ActionListener, MouseListener,Serializable
 {
 	graph grap;
 	LinkedList<Point3D> points = new LinkedList<Point3D>();
 	ArrayList<node_data> SP= new ArrayList<node_data>();
+	List<String> fruits = new ArrayList<String>();
 	double minx = Integer.MAX_VALUE;
 	double miny = Integer.MAX_VALUE;
 	double maxx = Integer.MIN_VALUE;
@@ -106,7 +111,8 @@ public class Game_GUI implements ActionListener, MouseListener,Serializable
 		if (this.grap!=null) 
 		{
 			//super.paint();
-			for(node_data node : this.grap.getV()) {
+			for(node_data node : this.grap.getV())
+			{
 				StdDraw.setPenColor(Color.RED);
 				StdDraw.filledCircle(node.getLocation().x(), node.getLocation().y(), (maxx-minx)*0.005);
 				Collection<edge_data> edd = this.grap.getE(node.getKey());
@@ -138,6 +144,7 @@ public class Game_GUI implements ActionListener, MouseListener,Serializable
 					StdDraw.text((xxxxx+this.grap.getNode(ed.getDest()).getLocation().x())/2,(yyyyy+this.grap.getNode(ed.getDest()).getLocation().y())/2+(maxy-miny)*0.03,""+ans);
 				}
 			}
+			
 		}
 	}
 
@@ -418,6 +425,11 @@ public class Game_GUI implements ActionListener, MouseListener,Serializable
 	@Override
 	public void mouseExited(MouseEvent e) {
 		//System.out.println("mouseExited");
+	}
+	
+	public void setFruits(List<String> fruits2) {
+		// TODO Auto-generated method stub
+	this.fruits=fruits2;	
 	}
 
 }

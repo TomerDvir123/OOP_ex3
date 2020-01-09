@@ -55,8 +55,7 @@ public class temp {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-	
+			
 		String info = game.toString();
 		System.out.println(info);
 		System.out.println(g);

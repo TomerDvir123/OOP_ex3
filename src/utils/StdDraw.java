@@ -79,6 +79,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+import org.json.JSONException;
+
+import Server.Fruit;
 import Server.Game_Server;
 import Server.game_service;
 import algorithms_ex3.Graph_Algo;
@@ -86,6 +89,7 @@ import dataStructure_ex3.DGraph;
 import dataStructure_ex3.Node;
 import dataStructure_ex3.graph;
 import dataStructure_ex3.node_data;
+import gameClient.GamePar;
 import gui.Game_GUI;
 import gui.Graph_GUI;
 
@@ -1751,7 +1755,18 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			//int num = Integer.parseInt(start);
 			if(num!=-1) {
 			game_service game = Game_Server.getServer(num); // you have [0,23] games
-
+			GamePar now = new GamePar(num);
+			try {
+				now.initFruit(game.getFruits());
+			} catch (JSONException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			
+		
+			
+			System.out.println(game.getFruits().toString());
+			
 			String g = game.getGraph();
 			DGraph gge = new DGraph();
 			try {

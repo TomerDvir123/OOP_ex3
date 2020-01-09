@@ -51,26 +51,10 @@ public class DGraph implements graph,Serializable {
 
 				JSONObject empObj = new JSONObject();
 				empObj = json_Nodes.getJSONObject(i);
-
 				int src = (int) empObj.get("id");
 				String pos = (String)empObj.get("pos");
 				Point3D loc = new Point3D(pos);
-
 				this.addNode(new Node(src, loc));
-				// JSONObject phoneObj = new JSONObject();
-				//
-				// String ans = json_Nodes.get(i).toString();
-				//
-				// JSONParser file2 = new JSONParser();
-				// Object obj2 = file2.parse(ans);
-				// JSONObject jsonObject2 = (JSONObject) obj2;
-				//
-				// int src = Integer.parseInt( jsonObject2.get("id").toString());
-				// String pos = jsonObject2.get("pos").toString();
-				// Point3D loc = new Point3D(pos);
-				// // double w = (double) jsonObject2.get("w");
-				// // int dest = Integer.parseInt( jsonObject2.get("dest").toString());
-				//
 			}
 
 			for (int i = 0; i < json_Edges.length(); i++) {
@@ -82,16 +66,6 @@ public class DGraph implements graph,Serializable {
 				double src = Double.parseDouble(empObj.get("src").toString());
 				double w = (double) empObj.get("w");
 				int dest = (int) empObj.get("dest");
-				// //reads line
-				// String ans = json_Edges.get(i).toString();
-				// //transforms
-				// JSONParser file2 = new JSONParser();
-				// Object obj2 = file2.parse(ans);
-				// JSONObject jsonObject2 = (JSONObject) obj2;
-				// //read
-				// int src = Integer.parseInt( jsonObject2.get("src").toString());
-				// double w = (double) jsonObject2.get("w");
-				// int dest = Integer.parseInt( jsonObject2.get("dest").toString());
 				this.connect((int)src, dest, w);
 			}
 

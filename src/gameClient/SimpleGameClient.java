@@ -8,6 +8,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import Server.Fruit;
 import Server.Game_Server;
 import Server.game_service;
 import dataStructure_ex3.DGraph;
@@ -49,6 +50,8 @@ public class SimpleGameClient {
 		System.out.println(g);
 		// the list of fruits should be considered in your solution
 		Iterator<String> f_iter = game.getFruits().iterator();
+//			f_iter.toString();
+	
 		while(f_iter.hasNext()) {System.out.println(f_iter.next());}
 		
 		int src_node = 0;  // arbitrary node, you should start at one of the fruits
