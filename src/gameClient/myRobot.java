@@ -46,6 +46,7 @@ public class myRobot {
 		//j++;
 		// }
 	}
+	
 	public double getValue() {     //this.id
 		return this.value;
 	}
@@ -75,5 +76,14 @@ public class myRobot {
 	// }
 	public String toString() {
 		return  "id: "+this.id+" value: "+this.value+"src : " +this.src+" dest:"+this.dest+" speed:"+this.speed+" location: "+this.location;
+	}
+	public void setDest(int dest) {
+		this.dest=dest;
+	}
+	public void setSrc(int src) {
+		this.src=src;
+	}
+	public void setLocation(Point3D loc) {
+		this.location = loc;
 	}
 }

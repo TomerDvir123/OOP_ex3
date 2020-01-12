@@ -93,6 +93,7 @@ import dataStructure_ex3.graph;
 import dataStructure_ex3.node_data;
 import gameClient.GamePar;
 import gameClient.myFruit;
+import gameClient.myRobot;
 import gui.Game_GUI;
 import gui.Graph_GUI;
 
@@ -1802,13 +1803,15 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 					e2.printStackTrace();
 				}
 				List<myFruit> fr = now.getfruit();
-
+				List<myRobot> rb = now.getrobot();
+				List<edge_data> edg =now.fruit_edges();
 				ff.setFr(fr);
-
+				ff.setrb(rb);
+				ff.setFr_Edge(edg);
+				
 				ff.setG(gge);
 				ff.initGUI();
-				//			System.out.println();
-				//			draw();
+
 			}
 
 

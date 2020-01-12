@@ -23,6 +23,8 @@ public class myFruit {
 		
 		//{"Fruit":{"value":5.0,"type":-1,"pos":"35.188900353135324,32.105320110855615,0.0"}}
 		//{"Fruit":[{"value":5.0,"type":-1,"pos":"35.188900353135324,32.105320110855615,0.0"}]}
+		
+		
 		public myFruit(String info , List<edge_data> edge_for_edes,graph grap) throws JSONException {
 			this.graps=grap;
 			alledges = edge_for_edes;
@@ -75,6 +77,10 @@ public class myFruit {
 				
 				
 			}
+			
+		}
+		public edge_data getsrc() {
+			return this.src_edge;
 			
 		}
 		public double getValue() {

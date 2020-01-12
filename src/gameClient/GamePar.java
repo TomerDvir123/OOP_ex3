@@ -95,13 +95,24 @@ public class GamePar {
 		num = (int) empObj.get("robots");
 		return num;
 	}
+	public List<edge_data> fruit_edges(){
+		
+		List<edge_data> edgefruit = new ArrayList<edge_data>();
+		for (myFruit nowfruit : fr)
+		{
+			edgefruit.add(nowfruit.getsrc());
+		}
+		return edgefruit;
+	}
+	
 	public void setrobot() {
 
 	}
 	public List<myFruit> getfruit() {
 		return fr;
 	}
-	public void getrobot() {
-
+	public List<myRobot> getrobot() {
+		return rb;
 	}
+	
 }

@@ -32,6 +32,7 @@ import dataStructure_ex3.edge_data;
 import dataStructure_ex3.graph;
 import dataStructure_ex3.node_data;
 import gameClient.myFruit;
+import gameClient.myRobot;
 import dataStructure_ex3.*;
 
 
@@ -42,6 +43,9 @@ public class Game_GUI implements ActionListener, MouseListener,Serializable
 	LinkedList<Point3D> points = new LinkedList<Point3D>();
 	ArrayList<node_data> SP= new ArrayList<node_data>();
 	List<myFruit> fruits = new ArrayList<myFruit>();
+	List<myRobot> robot = new ArrayList<myRobot>();
+	List<edge_data> edge_fruit = new ArrayList<edge_data>();
+
 	double minx = Integer.MAX_VALUE;
 	double miny = Integer.MAX_VALUE;
 	double maxx = Integer.MIN_VALUE;
@@ -60,15 +64,15 @@ public class Game_GUI implements ActionListener, MouseListener,Serializable
 	}
 	public void initGUI()
 	{
-		 minx = Integer.MAX_VALUE;
-		 miny = Integer.MAX_VALUE;
-		 maxx = Integer.MIN_VALUE;
-		 maxy = Integer.MIN_VALUE;
+		minx = Integer.MAX_VALUE;
+		miny = Integer.MAX_VALUE;
+		maxx = Integer.MIN_VALUE;
+		maxy = Integer.MIN_VALUE;
 
 		if(!StdDraw.getAllready())
 		{
-		StdDraw.setCanvasSize(800, 600);
-		StdDraw.changeDone();
+			StdDraw.setCanvasSize(800, 600);
+			StdDraw.changeDone();
 		}
 		StdDraw.setGUI(this);
 
@@ -97,18 +101,18 @@ public class Game_GUI implements ActionListener, MouseListener,Serializable
 		}
 		StdDraw.setXscale(minx, maxx);
 		StdDraw.setYscale(miny, maxy);
-		
+
 		paint();
-//		minx = Integer.MAX_VALUE;
-//	    miny = Integer.MAX_VALUE;
-//	    maxx = Integer.MIN_VALUE;
-//	    maxy = Integer.MIN_VALUE;
-//		StdDraw.show();	
+		//		minx = Integer.MAX_VALUE;
+		//	    miny = Integer.MAX_VALUE;
+		//	    maxx = Integer.MIN_VALUE;
+		//	    maxy = Integer.MIN_VALUE;
+		//		StdDraw.show();	
 	}
 	public void paint()
 	{
 		StdDraw.clear();
-		
+
 		if (this.grap!=null) 
 		{
 			//super.paint();
@@ -145,21 +149,38 @@ public class Game_GUI implements ActionListener, MouseListener,Serializable
 					StdDraw.text((xxxxx+this.grap.getNode(ed.getDest()).getLocation().x())/2,(yyyyy+this.grap.getNode(ed.getDest()).getLocation().y())/2+(maxy-miny)*0.03,""+ans);
 				}
 			}
-			
-			if(fruits.size()!=0) {
+
+			if(fruits.size()!=0) 
+			{
 				for (int i = 0; i < fruits.size(); i++) {
 					if(fruits.get(i).getType() == -1) {
-					StdDraw.setPenColor(Color.GREEN);
-					StdDraw.filledCircle(fruits.get(i).getLocation().x(), fruits.get(i).getLocation().y(),(maxx-minx)*0.005);
-					//StdDraw.filledCircle(node.getLocation().x(), node.getLocation().y(), (maxx-minx)*0.005);
+						StdDraw.setPenColor(Color.GREEN);
+						StdDraw.filledCircle(fruits.get(i).getLocation().x(), fruits.get(i).getLocation().y(),(maxx-minx)*0.005);
+						//StdDraw.filledCircle(node.getLocation().x(), node.getLocation().y(), (maxx-minx)*0.005);
 					}
 					else if(fruits.get(i).getType() == 1){
-						StdDraw.setPenColor(Color.pink);
+						StdDraw.setPenColor(Color.BLUE);
 						StdDraw.filledCircle(fruits.get(i).getLocation().x(), fruits.get(i).getLocation().y(),(maxx-minx)*0.005);
 					}
-					}
+				}
 			}
-			
+			if(robot.size()!=0) {
+
+
+				for (int i = 0; i < robot.size(); i++) 
+				{
+
+					edge_data curr = edge_fruit.get(0);
+					edge_fruit.remove(0);
+
+					robot.get(i).setDest(curr.getDest());
+					robot.get(i).setSrc(curr.getSrc());
+					robot.get(i).setLocation(this.grap.getNode(curr.getSrc()).getLocation());
+					System.out.println(robot.toString());
+					StdDraw.setPenColor(Color.black);
+					StdDraw.filledCircle(robot.get(i).getLocation().x(), robot.get(i).getLocation().y(),(maxx-minx)*0.005);
+				}
+			}
 		}
 	}
 
@@ -421,7 +442,7 @@ public class Game_GUI implements ActionListener, MouseListener,Serializable
 	public void setG(graph g)
 	{
 		this.grap = g;
-		
+
 
 	}
 
@@ -442,8 +463,16 @@ public class Game_GUI implements ActionListener, MouseListener,Serializable
 		//System.out.println("mouseExited");
 	}
 	public void setFr(List<myFruit> other) {
-		
+
 		fruits=other;
+	}
+	public void setrb(List<myRobot> other) {
+
+		robot=other;
+	}
+	public void setFr_Edge(List<edge_data> other) {
+
+		edge_fruit=other;
 	}
 
 }
