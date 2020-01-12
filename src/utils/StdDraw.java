@@ -88,6 +88,7 @@ import Server.game_service;
 import algorithms_ex3.Graph_Algo;
 import dataStructure_ex3.DGraph;
 import dataStructure_ex3.Node;
+import dataStructure_ex3.edge_data;
 import dataStructure_ex3.graph;
 import dataStructure_ex3.node_data;
 import gameClient.GamePar;
@@ -500,7 +501,7 @@ import gui.Graph_GUI;
  */
 public final class StdDraw implements ActionListener, MouseListener, MouseMotionListener, KeyListener {
 
-	
+
 	static Graph_GUI gg;
 	static Game_GUI ff;
 	static boolean Allreadydone=false;
@@ -745,9 +746,9 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		menuItem1.addActionListener(std);
 		JMenuItem menuItem3 = new JMenuItem("Computer");
 		menuItem3.addActionListener(std);
-		
+
 		menu.add(menuItem1);
-		
+
 		menu.add(menuItem3);
 		///
 		JMenu menu2 = new JMenu("File");
@@ -758,18 +759,18 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		JMenuItem menuItem4 = new JMenuItem("load");
 		menuItem4.addActionListener(std);
 		menu2.add(menuItem4);
-//		JMenuItem menuItem5 = new JMenuItem("shortest Path");
-//		menuItem5.addActionListener(std);
-//		menu2.add(menuItem5);
-//		JMenuItem menuItem6 = new JMenuItem("TSP");
-//		menuItem6.addActionListener(std);
-//		menu2.add(menuItem6);
-//
-//		JMenu menu3 = new JMenu("test");
-//		menuBar.add(menu3);
-//		JMenuItem menuItem7 = new JMenuItem("test1");
-//		menuItem7.addActionListener(std);
-//		menu3.add(menuItem7);
+		//		JMenuItem menuItem5 = new JMenuItem("shortest Path");
+		//		menuItem5.addActionListener(std);
+		//		menu2.add(menuItem5);
+		//		JMenuItem menuItem6 = new JMenuItem("TSP");
+		//		menuItem6.addActionListener(std);
+		//		menu2.add(menuItem6);
+		//
+		//		JMenu menu3 = new JMenu("test");
+		//		menuBar.add(menu3);
+		//		JMenuItem menuItem7 = new JMenuItem("test1");
+		//		menuItem7.addActionListener(std);
+		//		menu3.add(menuItem7);
 
 		return menuBar;
 	}
@@ -1709,14 +1710,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-//			FileDialog chooser = new FileDialog(StdDraw.frame, "Use a .png or .jpg extension", FileDialog.SAVE);
-//			chooser.setVisible(true);
-//			String filename = chooser.getFile();
-//			if (filename != null) 
-//			{
-//				StdDraw.save(chooser.getDirectory() + File.separator + chooser.getFile());
-//			}
-		
+		//			FileDialog chooser = new FileDialog(StdDraw.frame, "Use a .png or .jpg extension", FileDialog.SAVE);
+		//			chooser.setVisible(true);
+		//			String filename = chooser.getFile();
+		//			if (filename != null) 
+		//			{
+		//				StdDraw.save(chooser.getDirectory() + File.separator + chooser.getFile());
+		//			}
+
 		String act = e.getActionCommand();
 		switch(act)
 		{
@@ -1733,60 +1734,86 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 				}
 
 
-			try
-			{	
-			num = Integer.parseInt(start);
-			if(num>23 || num <0) 
-			{
-			    JOptionPane.showMessageDialog(jinput, "Enter good Input : only a number 0-23 !   ");
-			   // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				try
+				{	
+					num = Integer.parseInt(start);
+					if(num>23 || num <0) 
+					{
+						JOptionPane.showMessageDialog(jinput, "Enter good Input : only a number 0-23 !   ");
+						// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-			}
-			else 
-			{
-				flag = true;
-			}
-			}
-			catch (Exception e2)
-			{
-				//e2.printStackTrace();
-				JOptionPane.showMessageDialog(jinput, "Enter good Input : only a number 0-23 !   ");
-				//StdDraw.
-			}
+					}
+					else 
+					{
+						flag = true;
+					}
+				}
+				catch (Exception e2)
+				{
+					//e2.printStackTrace();
+					JOptionPane.showMessageDialog(jinput, "Enter good Input : only a number 0-23 !   ");
+					//StdDraw.
+				}
 			}
 			//int num = Integer.parseInt(start);
 			if(num!=-1) {
-			game_service game = Game_Server.getServer(num); // you have [0,23] games
-			GamePar now = new GamePar(num);
-			try {
-				now.initFruit(game.getFruits());	
-			} catch (JSONException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
-			List<myFruit> fr = now.getfruit();
-			ff.setFr(fr);
-			
-			System.out.println(game.getFruits().toString());
-			
-			String g = game.getGraph();
-			DGraph gge = new DGraph();
-			
-			try {
-				gge.init(g);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			ff.setG(gge);
-			ff.initGUI();
-//			System.out.println();
-//			draw();
-			}
-			
+				game_service game = Game_Server.getServer(num); // you have [0,23] games
 
 
-		break;
+
+				System.out.println(game.getFruits().toString());
+
+				String g = game.getGraph();
+				DGraph gge = new DGraph();
+
+				try {
+					gge.init(g);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+
+				GamePar now = new GamePar(num,gge);
+
+				try {
+					now.initFruit(game.getFruits());	
+					String ttt = game.toString();
+					System.out.println(ttt);
+					int sum = now.numRobot(ttt);
+					int i = 0;
+					int tempSum = sum;
+					while(tempSum>0)
+					{
+						game.addRobot(i);
+						i++;
+						tempSum--;
+					}
+					List<String >nma = game.getRobots();
+					System.out.println("list robots: "+nma.toString()+" list");
+					// now.initRobot(game.getRobots());
+					now.initRobot(nma);
+					System.out.println("55555555555555555222222222222222222222222");
+					System.out.println("num of robots: "+sum);
+					System.out.println("55555555555555555222222222222222222222222");
+
+				} catch (JSONException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				List<myFruit> fr = now.getfruit();
+
+				ff.setFr(fr);
+
+				ff.setG(gge);
+				ff.initGUI();
+				//			System.out.println();
+				//			draw();
+			}
+
+
+
+			break;
 		default : break;
 		}
 
