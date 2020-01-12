@@ -20,8 +20,6 @@ public class myFruit {
 			String temp = info.substring(1);
 			int y = temp.indexOf("{");
 			info = info.substring(0, y)+":[{"+info.substring(y+2, info.length()-2)+"}]}";
-			
-			
 			JSONObject jsonObject = new JSONObject(info);
 			JSONArray json_fruit =jsonObject.getJSONArray("Fruit");
 			JSONObject empObj = new JSONObject();
