@@ -31,6 +31,7 @@ import dataStructure_ex3.DGraph;
 import dataStructure_ex3.edge_data;
 import dataStructure_ex3.graph;
 import dataStructure_ex3.node_data;
+import gameClient.myFruit;
 import dataStructure_ex3.*;
 
 
@@ -40,7 +41,7 @@ public class Game_GUI implements ActionListener, MouseListener,Serializable
 	graph grap;
 	LinkedList<Point3D> points = new LinkedList<Point3D>();
 	ArrayList<node_data> SP= new ArrayList<node_data>();
-	List<String> fruits = new ArrayList<String>();
+	List<myFruit> fruits = new ArrayList<myFruit>();
 	double minx = Integer.MAX_VALUE;
 	double miny = Integer.MAX_VALUE;
 	double maxx = Integer.MIN_VALUE;
@@ -143,6 +144,20 @@ public class Game_GUI implements ActionListener, MouseListener,Serializable
 					double ans = Math.floor(ed.getWeight()*100)/100;
 					StdDraw.text((xxxxx+this.grap.getNode(ed.getDest()).getLocation().x())/2,(yyyyy+this.grap.getNode(ed.getDest()).getLocation().y())/2+(maxy-miny)*0.03,""+ans);
 				}
+			}
+			
+			if(fruits.size()!=0) {
+				for (int i = 0; i < fruits.size(); i++) {
+					if(fruits.get(i).getType() == -1) {
+					StdDraw.setPenColor(Color.GREEN);
+					StdDraw.filledCircle(fruits.get(i).getLocation().x(), fruits.get(i).getLocation().y(),(maxx-minx)*0.005);
+					//StdDraw.filledCircle(node.getLocation().x(), node.getLocation().y(), (maxx-minx)*0.005);
+					}
+					else if(fruits.get(i).getType() == 1){
+						StdDraw.setPenColor(Color.pink);
+						StdDraw.filledCircle(fruits.get(i).getLocation().x(), fruits.get(i).getLocation().y(),(maxx-minx)*0.005);
+					}
+					}
 			}
 			
 		}
@@ -426,10 +441,9 @@ public class Game_GUI implements ActionListener, MouseListener,Serializable
 	public void mouseExited(MouseEvent e) {
 		//System.out.println("mouseExited");
 	}
-	
-	public void setFruits(List<String> fruits2) {
-		// TODO Auto-generated method stub
-	this.fruits=fruits2;	
+	public void setFr(List<myFruit> other) {
+		
+		fruits=other;
 	}
 
 }

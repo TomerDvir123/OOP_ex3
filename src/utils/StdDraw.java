@@ -64,6 +64,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.NoSuchElementException;
 import javax.imageio.ImageIO;
@@ -90,6 +91,7 @@ import dataStructure_ex3.Node;
 import dataStructure_ex3.graph;
 import dataStructure_ex3.node_data;
 import gameClient.GamePar;
+import gameClient.myFruit;
 import gui.Game_GUI;
 import gui.Graph_GUI;
 
@@ -1757,21 +1759,13 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			game_service game = Game_Server.getServer(num); // you have [0,23] games
 			GamePar now = new GamePar(num);
 			try {
-				now.initFruit(game.getFruits());
-				///////////////////////
-				
-				
-				
-				
-				
-				/////////////////////////
-				
+				now.initFruit(game.getFruits());	
 			} catch (JSONException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
-			
-		
+			List<myFruit> fr = now.getfruit();
+			ff.setFr(fr);
 			
 			System.out.println(game.getFruits().toString());
 			
