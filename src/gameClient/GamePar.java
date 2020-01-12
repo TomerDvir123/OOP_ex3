@@ -62,15 +62,13 @@ public class GamePar {
 	
 	public void initRobot(List<String> robot_info) throws JSONException {	
 		
-		
-		
 	}
 
 	public void setrobot() {
 
 	}
-	public void getfruit() {
-
+	public List<myFruit> getfruit() {
+		return fr;
 	}
 	public void getrobot() {
 
