@@ -62,7 +62,8 @@ import java.io.IOException;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
@@ -81,6 +82,7 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import Server.Fruit;
 import Server.Game_Server;
@@ -505,6 +507,9 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 	static Graph_GUI gg;
 	static Game_GUI ff;
+	double cx;
+	double cy;
+
 	static boolean Allreadydone=false;
 	/**
 	 *  The color black.
@@ -1709,7 +1714,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * This method cannot be called directly.
 	 */
+	Thread th;
+	Thread th2;
+	boolean isClicked;
+	boolean thr1=false;
+	boolean thr2=false;
+
 	@Override
+
 	public void actionPerformed(ActionEvent e) {
 		//			FileDialog chooser = new FileDialog(StdDraw.frame, "Use a .png or .jpg extension", FileDialog.SAVE);
 		//			chooser.setVisible(true);
@@ -1723,17 +1735,20 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		switch(act)
 		{
 		case "Menual":
+			thr1=true;
+			th = new Thread(new Runnable() {			
+				@Override
+				public void run() {
+                  try {
 			boolean flag = false;
 			int num = -1;
 			JFrame jinput = new JFrame();
 			while(!flag)
 			{
 				String start = JOptionPane.showInputDialog(jinput,"Choose scenario");
-				//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				if(start==null) {
 					break;
 				}
-
 
 				try
 				{	
@@ -1741,7 +1756,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 					if(num>23 || num <0) 
 					{
 						JOptionPane.showMessageDialog(jinput, "Enter good Input : only a number 0-23 !   ");
-						// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 					}
 					else 
@@ -1751,19 +1765,13 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 				}
 				catch (Exception e2)
 				{
-					//e2.printStackTrace();
 					JOptionPane.showMessageDialog(jinput, "Enter good Input : only a number 0-23 !   ");
-					//StdDraw.
 				}
 			}
-			//int num = Integer.parseInt(start);
+	
 			if(num!=-1) {
 				game_service game = Game_Server.getServer(num); // you have [0,23] games
-
-
-
 				System.out.println(game.getFruits().toString());
-
 				String g = game.getGraph();
 				DGraph gge = new DGraph();
 
@@ -1773,7 +1781,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-
 
 				GamePar now = new GamePar(num,gge);
 
@@ -1792,11 +1799,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 					}
 					List<String >nma = game.getRobots();
 					System.out.println("list robots: "+nma.toString()+" list");
-					// now.initRobot(game.getRobots());
 					now.initRobot(nma);
-					System.out.println("55555555555555555222222222222222222222222");
 					System.out.println("num of robots: "+sum);
-					System.out.println("55555555555555555222222222222222222222222");
 
 				} catch (JSONException e2) {
 					// TODO Auto-generated catch block
@@ -1808,13 +1812,273 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 				ff.setFr(fr);
 				ff.setrb(rb);
 				ff.setFr_Edge(edg);
-				
 				ff.setG(gge);
 				ff.initGUI();
-
+				game.startGame();
+				myRobot choosen_rob = null;
+				while(game.isRunning()) 
+				{
+                    long time_game = game.timeToEnd();
+                    List<String> robots_curr = game.getRobots();
+                    rb.clear();
+                    now.initRobot(robots_curr);
+                    if(choosen_rob!=null) 
+                    {
+                    	for(myRobot robot : rb) 
+                    	{
+                    		choosen_rob.setLocation(robot.getLocation());
+                    	}
+                    }
+                    List<String> fruits_curr = game.getFruits();
+                    fr.clear();
+                    now.initFruit(fruits_curr);
+					ff.setFr(fr);
+					ff.setrb(rb);
+					ff.setFr_Edge(edg);
+					ff.setG(gge);
+					ff.initGUI();
+			     Point3D click_XY = new Point3D(cx,cy);
+			     if(!isClicked) 
+			     {
+			    	 for(myRobot r : rb) 
+			    	 {
+			    		 Point3D curr_robot = r.getLocation();
+			    		 if(curr_robot.distance2D(click_XY)<0.0004) {
+			    			 choosen_rob = r;
+			    			 System.out.println("Robot was choosen!");
+			    			 cx = 0;
+			    			 cy = 0;
+			    			 isClicked=true;
+			    			 break;
+			    		 }
+			    	 }
+			     }
+			      else	
+			      {		     
+			       for(node_data j : gge.getV() ) 
+			       {
+					    Point3D dest_pos = j.getLocation();
+					    if(click_XY.distance2D(dest_pos)<0.0004) 
+					    {
+					    	System.out.println("The dest was pressed");
+					    	game.chooseNextEdge(choosen_rob.getId() , j.getKey());
+					    	cx = 0;
+					    	cy = 0;
+					    	isClicked = false;
+					    }
+			       }
+			     }
+			     game.move();
+					ff.setFr(fr);
+					ff.setrb(rb);
+					ff.setFr_Edge(edg);
+					ff.setG(gge);
+					ff.initGUI();
+				}				
 			}
+		        th.interrupt();
+
+              	} catch (Exception e2) {
+					e2.printStackTrace();
+				}					
+				}
+			});
+			th.start();
+			break;
+		/////////////////////////////////////
+		//computer////////
+		///////////////////////////////////////
+		case "Computer":
+			thr2=true;
+			th2 = new Thread(new Runnable() {			
+				@Override
+				public void run() {
+					try {
+						boolean flag = false;
+						int num = -1;
+						JFrame jinput = new JFrame();
+						while(!flag)
+						{
+							String start = JOptionPane.showInputDialog(jinput,"Choose scenario");
+							if(start==null) {
+								break;
+							}
+
+							try
+							{	
+								num = Integer.parseInt(start);
+								if(num>23 || num <0) 
+								{
+									JOptionPane.showMessageDialog(jinput, "Enter good Input : only a number 0-23 !   ");
+
+								}
+								else 
+								{
+									flag = true;
+								}
+							}
+							catch (Exception e2)
+							{
+								JOptionPane.showMessageDialog(jinput, "Enter good Input : only a number 0-23 !   ");
+							}
+						}
 
 
+
+						if(num!=-1) {
+							game_service game = Game_Server.getServer(num); // you have [0,23] games
+							System.out.println(game.getFruits().toString());
+							String g = game.getGraph();
+							DGraph gge = new DGraph();
+
+							try {
+								gge.init(g);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+
+
+							GamePar now = new GamePar(num,gge);
+
+							try {
+								now.initFruit(game.getFruits());	
+								String ttt = game.toString();
+								System.out.println(ttt);
+								int sum = now.numRobot(ttt);
+								int i = 0;
+								int tempSum = sum;
+								List <edge_data> ooo = now.fruit_edges();
+								while(tempSum>0)
+								{
+									game.addRobot(ooo.get(0).getSrc());
+									ooo.remove(0);
+									tempSum--;
+								}
+								List<String >nma = game.getRobots();
+								System.out.println("list robots: "+nma.toString()+" list");
+								now.initRobot(nma);
+								System.out.println("num of robots: "+sum);
+
+							} catch (JSONException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							}
+							List<myFruit> fr = now.getfruit();
+							List<myRobot> rb = now.getrobot();
+							List<edge_data> edg =now.fruit_edges();
+							ff.setFr(fr);
+							ff.setrb(rb);
+							ff.setFr_Edge(edg);
+							ff.setG(gge);
+							ff.initGUI();
+							game.startGame();
+							myRobot choosen_rob = null;
+
+							while(game.isRunning()) 
+							{
+								long time_game = game.timeToEnd();
+								List<String> robots_curr = game.getRobots();
+								rb.clear();
+								now.initRobot(robots_curr);
+
+								for(myRobot robot : rb) 
+								{
+									choosen_rob = robot;
+								}
+
+								List<String> fruits_curr = game.getFruits();
+								fr.clear();
+								now.initFruit(fruits_curr);
+								ff.setFr(fr);
+								ff.setrb(rb);
+								ff.setFr_Edge(edg);
+								ff.setG(gge);
+								ff.initGUI();
+								///////////////////////////////////////////////////////////////////
+								//			       for(node_data j : gge.getV() ) 
+								//			       {
+								//					    Point3D dest_pos = j.getLocation();	
+								//					    game.chooseNextEdge(choosen_rob.getId() , j.getKey());
+								//			       }
+								int ffff = 13;
+//								while(ffff>=0) 
+//								{
+									//					System.out.println(ffff);
+									List<String> log = game.move();
+									JSONObject line;
+									try {
+									String robot_json = log.get(0);
+									line = new JSONObject(robot_json);
+									JSONObject ttt = line.getJSONObject("Robot");
+									int rid = ttt.getInt("id");
+									int src = ttt.getInt("src");
+									int dest = ttt.getInt("dest");
+									if(dest==-1) {
+										game.chooseNextEdge(0 , ffff);
+										//game.move();
+										ffff--;	
+									}
+									}catch (Exception e) {
+										e.printStackTrace();
+									}
+									game.move();
+//									fr.clear();
+//									now.initFruit(fruits_curr);
+//									ff.setFr(fr);
+//									rb.clear();
+//									now.initRobot(robots_curr);
+//									ff.setrb(rb);
+//									edg =now.fruit_edges();
+//									ff.setFr_Edge(edg);
+//									ff.setG(gge);
+//									//ff.initGUI();
+//									ff.paint();
+									
+									List<myFruit> test1 = new ArrayList<myFruit>();
+									List<String> qwer = game.getFruits();
+									for (String string : qwer) {
+										myFruit asdff = new myFruit();
+										asdff.initFromJson(string);
+										test1.add(asdff);
+									}
+//									
+									List<myRobot> test2 = new ArrayList<myRobot>();
+									List<String> qwery = game.getRobots();
+									for (String string : qwery) {
+										myRobot wert = new myRobot();
+										wert.botFromJSON(string);
+										test2.add(wert);
+									}
+									ff.setFr(test1);
+									ff.setrb(test2);
+									
+									ff.paint();
+									
+								//}
+
+								game.move();
+								fr.clear();
+								now.initFruit(fruits_curr);
+								ff.setFr(fr);
+								rb.clear();
+								now.initRobot(robots_curr);
+								ff.setrb(rb);
+								edg =now.fruit_edges();
+								ff.setFr_Edge(edg);
+								ff.setG(gge);
+								//ff.initGUI();
+								ff.paint();
+							}				
+						}
+						th2.interrupt();
+
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}					
+				}
+			});
+		th2.start();
 
 			break;
 		default : break;
@@ -1879,7 +2143,9 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// this body is intentionally left empty
+		this.cx = StdDraw.userX(e.getX());
+		this.cy = StdDraw.userY(e.getY());
+
 	}
 
 	/**
@@ -2044,28 +2310,28 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 *
 	 * @param args the command-line arguments
 	 */
-	public static void main(String[] args) {
-		StdDraw.square(0.2, 0.8, 0.1);
-		StdDraw.filledSquare(0.8, 0.8, 0.2);
-		StdDraw.circle(0.8, 0.2, 0.2);
-
-		StdDraw.setPenColor(StdDraw.BOOK_RED);
-		StdDraw.setPenRadius(0.02);
-		StdDraw.arc(0.8, 0.2, 0.1, 200, 45);
-
-		// draw a blue diamond
-		StdDraw.setPenRadius();
-		StdDraw.setPenColor(StdDraw.BOOK_BLUE);
-		double[] x = { 0.1, 0.2, 0.3, 0.2 };
-		double[] y = { 0.2, 0.3, 0.2, 0.1 };
-		StdDraw.filledPolygon(x, y);
-
-		// text
-		StdDraw.setPenColor(StdDraw.BLACK);
-		StdDraw.text(0.2, 0.5, "black text");
-		StdDraw.setPenColor(StdDraw.WHITE);
-		StdDraw.text(0.8, 0.8, "white text");
-	}
+	//	public static void main(String[] args) {
+	//		StdDraw.square(0.2, 0.8, 0.1);
+	//		StdDraw.filledSquare(0.8, 0.8, 0.2);
+	//		StdDraw.circle(0.8, 0.2, 0.2);
+	//
+	//		StdDraw.setPenColor(StdDraw.BOOK_RED);
+	//		StdDraw.setPenRadius(0.02);
+	//		StdDraw.arc(0.8, 0.2, 0.1, 200, 45);
+	//
+	//		// draw a blue diamond
+	//		StdDraw.setPenRadius();
+	//		StdDraw.setPenColor(StdDraw.BOOK_BLUE);
+	//		double[] x = { 0.1, 0.2, 0.3, 0.2 };
+	//		double[] y = { 0.2, 0.3, 0.2, 0.1 };
+	//		StdDraw.filledPolygon(x, y);
+	//
+	//		// text
+	//		StdDraw.setPenColor(StdDraw.BLACK);
+	//		StdDraw.text(0.2, 0.5, "black text");
+	//		StdDraw.setPenColor(StdDraw.WHITE);
+	//		StdDraw.text(0.8, 0.8, "white text");
+	//	}
 
 }
 

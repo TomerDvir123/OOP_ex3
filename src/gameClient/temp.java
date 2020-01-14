@@ -36,15 +36,8 @@ import utils.Point3D;
 public class temp {
 	public static void main(String[] a) {
 		
-//		
-//		node_data t = new Node(1,new Point3D(1.0,2.0,3.0));
-//		
-//		DGraph p = new DGraph();
-//		p.addNode((dataStructure_ex3.node_data) t);
 		Game_GUI p2 = new Game_GUI();
-		System.out.println();
-//		test1();
-	}
+ 	}
 	public static void test1() {
 		game_service game = Game_Server.getServer(23); // you have [0,23] games
 		String g = game.getGraph();
@@ -52,7 +45,6 @@ public class temp {
 		try {
 			gg.init(g);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 			
@@ -70,11 +62,9 @@ public class temp {
 		int i=0;
 		while(game.isRunning()) {
 			long t = game.timeToEnd();
-			//System.out.println("roung: "+i+"  seconds to end:"+(t/1000));
 			List<String> log = game.move();
 			if(log!=null) {
 				String robot_json = log.get(0);
-			//	System.out.println(robot_json);
 				JSONObject line;
 				try {
 					line = new JSONObject(robot_json);

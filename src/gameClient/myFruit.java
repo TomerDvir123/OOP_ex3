@@ -25,6 +25,10 @@ public class myFruit {
 		//{"Fruit":[{"value":5.0,"type":-1,"pos":"35.188900353135324,32.105320110855615,0.0"}]}
 		
 		
+		public myFruit() {
+			// TODO Auto-generated constructor stub
+		}
+		
 		public myFruit(String info , List<edge_data> edge_for_edes,graph grap) throws JSONException {
 			this.graps=grap;
 			alledges = edge_for_edes;
@@ -43,7 +47,7 @@ public class myFruit {
 			this.location=loc;
 			setedges(alledges, this.location, grap);
 			
-			System.out.println("src:"+this.src_edge.getSrc()+" dest:" +this.src_edge.getDest());
+		//	System.out.println("src:"+this.src_edge.getSrc()+" dest:" +this.src_edge.getDest());
 			
 	}
 		public void setedges(List<edge_data> coledg,Point3D fruit,graph grap)
@@ -72,7 +76,13 @@ public class myFruit {
 				
 				double EPS = 0.0000001;
 				if ((dis_a_f+dis_f_b)-dis_a_b<=EPS) {
-					this.src_edge=ed;
+					if(this.type==-1 && ed.getSrc()>ed.getDest()) {
+						this.src_edge=ed;
+					}
+					else if(this.type==1 && ed.getSrc()<ed.getDest()) {
+						this.src_edge=ed;
+					}
+
 				}
 				
 				
@@ -95,4 +105,39 @@ public class myFruit {
 		public String toString() {
 			return "value: "+this.value+" location: "+this.location+" type: " +this.type;		
 			}
+		
+
+		////
+		public void initFromJson(String json)
+		{
+			if(!json.isEmpty())
+			{
+				try
+				{
+					JSONObject obj = new JSONObject(json);
+					//			JSONArray fruits = obj.getJSONArray("Fruit");
+					//			for (int i = 0; i < fruits.length(); i++)
+					//			{
+					//				JSONObject CurrFruit = (JSONObject)fruits.get(i);
+					JSONObject CurrFruit = (JSONObject) obj.get("Fruit");
+					String pos = CurrFruit.getString("pos");
+					String[] arr = pos.split(",");
+					double x = Double.parseDouble(arr[0]);
+					double y = Double.parseDouble(arr[1]);
+					double z = Double.parseDouble(arr[2]);
+					this.location = new Point3D(x, y, z);
+					int value = CurrFruit.getInt("value");
+					this.value = value;
+					int type = CurrFruit.getInt("type");
+					this.type = type;
+					//findEdge();
+					//			}
+				}
+				catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+			}
+		}
+		//////
 }

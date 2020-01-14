@@ -58,7 +58,7 @@ public class GamePar {
 
 			myFruit temp = new myFruit(fruit_info.get(i),getedges(),grap);
 			fr.add(temp);
-			System.out.println(fr.get(i).toString());
+//			System.out.println(fr.get(i).toString());
 		}
 	}
 	public List<edge_data> getedges() {
@@ -79,7 +79,7 @@ public class GamePar {
 		for (int i = 0; i < robot_info.size(); i++) {
 			myRobot temp = new myRobot(robot_info.get(i));
 			rb.add(temp);
-			System.out.println(rb.get(i).toString());
+//			System.out.println(rb.get(i).toString());
 		}
 	}
 	public int numRobot(String info) throws JSONException

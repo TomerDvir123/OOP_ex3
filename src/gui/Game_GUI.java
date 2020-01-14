@@ -63,7 +63,8 @@ public class Game_GUI implements ActionListener, MouseListener,Serializable
 		initGUI();
 	}
 	public void initGUI()
-	{
+	{   
+		StdDraw.enableDoubleBuffering();
 		minx = Integer.MAX_VALUE;
 		miny = Integer.MAX_VALUE;
 		maxx = Integer.MIN_VALUE;
@@ -112,7 +113,6 @@ public class Game_GUI implements ActionListener, MouseListener,Serializable
 	public void paint()
 	{
 		StdDraw.clear();
-
 		if (this.grap!=null) 
 		{
 			//super.paint();
@@ -167,21 +167,19 @@ public class Game_GUI implements ActionListener, MouseListener,Serializable
 			if(robot.size()!=0) {
 
 
-				for (int i = 0; i < robot.size(); i++) 
+				for (int i = 0; i < robot.size(); i++)
 				{
+//				System.out.println(robot.toString());
+				StdDraw.setPenColor(Color.black);
 
-					edge_data curr = edge_fruit.get(0);
-					edge_fruit.remove(0);
+			//	StdDraw.filledCircle(robot.get(i).getLocation().x(), robot.get(i).getLocation().y(),(maxx-minx)*0.007);
+				StdDraw.circle(robot.get(i).getLocation().x(), robot.get(i).getLocation().y(),(maxx-minx)*0.007);
 
-					robot.get(i).setDest(curr.getDest());
-					robot.get(i).setSrc(curr.getSrc());
-					robot.get(i).setLocation(this.grap.getNode(curr.getSrc()).getLocation());
-					System.out.println(robot.toString());
-					StdDraw.setPenColor(Color.black);
-					StdDraw.filledCircle(robot.get(i).getLocation().x(), robot.get(i).getLocation().y(),(maxx-minx)*0.005);
 				}
-			}
+				}				
+
 		}
+		StdDraw.show();
 	}
 
 	@Override
