@@ -4,7 +4,7 @@ import dataStructure_ex3.DGraph;
 import dataStructure_ex3.graph;
 import dataStructure_ex3.node_data;
 import dataStructure_ex3.*;
-import gui.Game_GUI;
+import gui.MyGameGUI;
 import gui.Graph_GUI;
 import utils.Point3D;
 
@@ -60,7 +60,7 @@ public class GUI_Test {
 		grap.connect(v6.getKey(), v5.getKey(), 1);
 		grap.connect(v4.getKey(), v6.getKey(), 3);
 		// Window window = new Window();
-		Game_GUI window = new Game_GUI(grap);
+		MyGameGUI window = new MyGameGUI(grap);
 
 
 	//	window.setVisible(true);

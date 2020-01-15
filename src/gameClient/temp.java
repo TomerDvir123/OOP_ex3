@@ -15,7 +15,7 @@ import dataStructure_ex3.DGraph;
 import dataStructure_ex3.Node;
 import dataStructure_ex3.edge_data;
 import dataStructure_ex3.graph;
-import gui.Game_GUI;
+import gui.MyGameGUI;
 import utils.Point3D;
 /**
  * This class represents a simple example for using the GameServer API:
@@ -36,7 +36,7 @@ import utils.Point3D;
 public class temp {
 	public static void main(String[] a) {
 		
-		Game_GUI p2 = new Game_GUI();
+		MyGameGUI p2 = new MyGameGUI();
  	}
 	public static void test1() {
 		game_service game = Game_Server.getServer(23); // you have [0,23] games

@@ -96,7 +96,7 @@ import dataStructure_ex3.node_data;
 import gameClient.GamePar;
 import gameClient.myFruit;
 import gameClient.myRobot;
-import gui.Game_GUI;
+import gui.MyGameGUI;
 import gui.Graph_GUI;
 
 /**
@@ -506,7 +506,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 
 	static Graph_GUI gg;
-	static Game_GUI ff;
+	static MyGameGUI ff;
 	double cx;
 	double cy;
 
@@ -2450,7 +2450,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			keysDown.remove(e.getKeyCode());
 		}
 	}
-	public static void setGUI(Game_GUI g)
+	public static void setGUI(MyGameGUI g)
 	{
 		ff = g;
 	}

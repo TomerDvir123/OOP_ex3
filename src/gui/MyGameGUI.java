@@ -37,7 +37,7 @@ import dataStructure_ex3.*;
 
 
 
-public class Game_GUI implements ActionListener, MouseListener,Serializable
+public class MyGameGUI implements ActionListener, MouseListener,Serializable
 {
 	graph grap;
 	LinkedList<Point3D> points = new LinkedList<Point3D>();
@@ -52,12 +52,12 @@ public class Game_GUI implements ActionListener, MouseListener,Serializable
 	double maxy = Integer.MIN_VALUE;
 
 
-	public Game_GUI()
+	public MyGameGUI()
 	{
 		grap = new DGraph();
 		initGUI();
 	}
-	public Game_GUI(graph g )
+	public MyGameGUI(graph g )
 	{
 		this.grap = g;
 		initGUI();
