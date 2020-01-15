@@ -17,10 +17,17 @@ import dataStructure_ex3.node_data;
 public class KML_Logger {
 
 	game_service game;
+	GamePar now;
 	graph grap;
 
 	public KML_Logger() {
 
+	}
+	public void set_now(GamePar now) {
+		this.now = now;
+	}
+	public GamePar get_now() {
+		return now;
 	}
 	public void setGraph(graph grap) {
 		this.grap= grap;
@@ -116,6 +123,80 @@ public class KML_Logger {
 				"			<color>ff0000ff</color>\r\n" + 
 				"			<width>2</width>\r\n" + 
 				"		</LineStyle>\r\n" + 
+				"	</Style>\r\n" + 
+				"	<name>Robot.kml</name>\r\n" + 
+				"	<Style id=\"s_ylw-pushpin_hl\">\r\n" + 
+				"		<IconStyle>\r\n" + 
+				"			<color>ff005555</color>\r\n" + 
+				"			<scale>0.945455</scale>\r\n" + 
+				"			<Icon>\r\n" + 
+				"				<href>http://maps.google.com/mapfiles/kml/shapes/motorcycling.png</href>\r\n" + 
+				"			</Icon>\r\n" + 
+				"			<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
+				"		</IconStyle>\r\n" + 
+				"		<ListStyle>\r\n" + 
+				"		</ListStyle>\r\n" + 
+				"	</Style>\r\n" + 
+				"	<StyleMap id=\"m_ylw-pushpin\">\r\n" + 
+				"		<Pair>\r\n" + 
+				"			<key>normal</key>\r\n" + 
+				"			<styleUrl>#s_ylw-pushpin</styleUrl>\r\n" + 
+				"		</Pair>\r\n" + 
+				"		<Pair>\r\n" + 
+				"			<key>highlight</key>\r\n" + 
+				"			<styleUrl>#s_ylw-pushpin_hl</styleUrl>\r\n" + 
+				"		</Pair>\r\n" + 
+				"	</StyleMap>\r\n" + 
+				"	<Style id=\"s_ylw-pushpin\">\r\n" + 
+				"		<IconStyle>\r\n" + 
+				"			<color>ff005555</color>\r\n" + 
+				"			<scale>0.8</scale>\r\n" + 
+				"			<Icon>\r\n" + 
+				"				<href>http://maps.google.com/mapfiles/kml/shapes/motorcycling.png</href>\r\n" + 
+				"			</Icon>\r\n" + 
+				"			<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
+				"		</IconStyle>\r\n" + 
+				"		<ListStyle>\r\n" + 
+				"		</ListStyle>\r\n" + 
+				"	</Style>\r\n" + 
+				"		<name>fruit.kml</name>\r\n" + 
+				"	<StyleMap id=\"msn_dollar\">\r\n" + 
+				"		<Pair>\r\n" + 
+				"			<key>normal</key>\r\n" + 
+				"			<styleUrl>#sn_dollar</styleUrl>\r\n" + 
+				"		</Pair>\r\n" + 
+				"		<Pair>\r\n" + 
+				"			<key>highlight</key>\r\n" + 
+				"			<styleUrl>#sh_dollar</styleUrl>\r\n" + 
+				"		</Pair>\r\n" + 
+				"	</StyleMap>\r\n" + 
+				"	<Style id=\"sn_dollar\">\r\n" + 
+				"		<IconStyle>\r\n" + 
+				"			<color>ff7fff00</color>\r\n" + 
+				"			<scale>0.7</scale>\r\n" + 
+				"			<Icon>\r\n" + 
+				"				<href>http://maps.google.com/mapfiles/kml/shapes/dollar.png</href>\r\n" + 
+				"			</Icon>\r\n" + 
+				"			<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
+				"		</IconStyle>\r\n" + 
+				"		<BalloonStyle>\r\n" + 
+				"		</BalloonStyle>\r\n" + 
+				"		<ListStyle>\r\n" + 
+				"		</ListStyle>\r\n" + 
+				"	</Style>\r\n" + 
+				"	<Style id=\"sh_dollar\">\r\n" + 
+				"		<IconStyle>\r\n" + 
+				"			<color>ff7fff00</color>\r\n" + 
+				"			<scale>0.827273</scale>\r\n" + 
+				"			<Icon>\r\n" + 
+				"				<href>http://maps.google.com/mapfiles/kml/shapes/dollar.png</href>\r\n" + 
+				"			</Icon>\r\n" + 
+				"			<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
+				"		</IconStyle>\r\n" + 
+				"		<BalloonStyle>\r\n" + 
+				"		</BalloonStyle>\r\n" + 
+				"		<ListStyle>\r\n" + 
+				"		</ListStyle>\r\n" + 
 				"	</Style>";
 	
 		String ans="";
@@ -162,6 +243,31 @@ public class KML_Logger {
 				edge=edge+edges;
 			}
 		}
+		
+		while(game.isRunning()) {
+			
+			//every 1 second 
+			
+			String robot = "";
+			
+			
+			String fruit = "" ;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		String bottom = "	</Document>\r\n" + 
 				"</kml>";

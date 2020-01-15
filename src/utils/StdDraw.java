@@ -94,6 +94,7 @@ import dataStructure_ex3.edge_data;
 import dataStructure_ex3.graph;
 import dataStructure_ex3.node_data;
 import gameClient.GamePar;
+import gameClient.Game_par;
 import gameClient.KML_Logger;
 import gameClient.myFruit;
 import gameClient.myRobot;
@@ -1943,7 +1944,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 							GamePar now = new GamePar(num,gge);
 							//send nodes
 							KML_Logger kml = new KML_Logger();
-							
+							kml.set_now(now);
 							kml.setGame(game);
 							kml.setGraph(gge);
 							kml.openKML();
