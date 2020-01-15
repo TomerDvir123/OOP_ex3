@@ -173,8 +173,8 @@ public class Game_GUI implements ActionListener, MouseListener,Serializable
 				StdDraw.setPenColor(Color.black);
 
 			//	StdDraw.filledCircle(robot.get(i).getLocation().x(), robot.get(i).getLocation().y(),(maxx-minx)*0.007);
-				StdDraw.circle(robot.get(i).getLocation().x(), robot.get(i).getLocation().y(),(maxx-minx)*0.007);
-
+				//StdDraw.circle(robot.get(i).getLocation().x(), robot.get(i).getLocation().y(),(maxx-minx)*0.007);
+				StdDraw.picture(robot.get(i).getLocation().x(), robot.get(i).getLocation().y(), "pic.PNG",(maxx-minx)*0.02,(maxx-minx)*0.02);
 				}
 				}				
 
