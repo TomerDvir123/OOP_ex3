@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import utils.Point3D;
 
 ///////robots:[{"Robot":{"id":0,"value":0.0,"src":0,"dest":-1,"speed":1.0,"pos":"35.212217299435025,32.106235628571426,0.0"}}]
-public class myRobot {
+public class myRobot implements Robots {
 
 	int id ;
 	double value ;
@@ -47,22 +47,33 @@ public class myRobot {
 		//j++;
 		// }
 	}
-	
+	@Override
+
 	public double getValue() {     //this.id
 		return this.value;
 	}
+	@Override
+
 	public Point3D getLocation() {
 		return this.location;
 	}
+	@Override
+
 	public int getSrc() {
 		return this.src;
 	}
+	@Override
+
 	public int getId() {
 		return this.id;
 	}
+	@Override
+
 	public int getDest() {
 		return this.dest;
 	}
+	@Override
+
 	public double getSpeed() {
 		return this.speed;
 	}
@@ -75,19 +86,29 @@ public class myRobot {
 	//
 	// return num;
 	// }
+	@Override
+
 	public String toString() {
 		return  "id: "+this.id+" value: "+this.value+"src : " +this.src+" dest:"+this.dest+" speed:"+this.speed+" location: "+this.location;
 	}
+	@Override
+
 	public void setDest(int dest) {
 		this.dest=dest;
 	}
+	@Override
+
 	public void setSrc(int src) {
 		this.src=src;
 	}
+	@Override
+
+	
 	public void setLocation(Point3D loc) {
 		this.location = loc;
 	}
 	/////////////
+
 	public void botFromJSON(String json)
 	{
 		if(!json.isEmpty())

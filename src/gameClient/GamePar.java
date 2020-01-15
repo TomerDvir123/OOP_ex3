@@ -42,7 +42,7 @@ import org.json.*;
 
 
 
-public class GamePar {
+public class GamePar implements Game_par {
 	List<myFruit>fr = new ArrayList<myFruit>();
 	List<myRobot> rb = new ArrayList<myRobot>();
 	int scene;
@@ -60,7 +60,9 @@ public class GamePar {
 			fr.add(temp);
 //			System.out.println(fr.get(i).toString());
 		}
-	}
+	} 
+	@Override
+
 	public List<edge_data> getedges() {
 		List<edge_data> edges = new ArrayList<edge_data>();
 		Collection<dataStructure_ex3.node_data> nodes = this.grap.getV();
@@ -95,6 +97,8 @@ public class GamePar {
 		num = (int) empObj.get("robots");
 		return num;
 	}
+	@Override
+
 	public List<edge_data> fruit_edges(){
 		
 		List<edge_data> edgefruit = new ArrayList<edge_data>();
@@ -104,13 +108,14 @@ public class GamePar {
 		}
 		return edgefruit;
 	}
-	
-	public void setrobot() {
 
-	}
+	@Override
+
 	public List<myFruit> getfruit() {
 		return fr;
 	}
+	@Override
+
 	public List<myRobot> getrobot() {
 		return rb;
 	}

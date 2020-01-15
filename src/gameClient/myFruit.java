@@ -11,7 +11,7 @@ import dataStructure_ex3.edge_data;
 import dataStructure_ex3.graph;
 import utils.Point3D;
 
-public class myFruit {
+public class myFruit implements Fruits {
 
 	
 		double value ;
@@ -50,6 +50,8 @@ public class myFruit {
 		//	System.out.println("src:"+this.src_edge.getSrc()+" dest:" +this.src_edge.getDest());
 			
 	}
+		@Override
+
 		public void setedges(List<edge_data> coledg,Point3D fruit,graph grap)
 		{
 			double x_fruit=fruit.x();
@@ -89,19 +91,29 @@ public class myFruit {
 			}
 			
 		}
+		@Override
+
 		public edge_data getsrc() {
 			return this.src_edge;
 			
 		}
+		@Override
+
 		public double getValue() {
 			return this.value;
 		}
+		@Override
+
 		public Point3D getLocation() {
 			return this.location;
 		}
+		@Override
+
 		public int getType() {
 			return this.type;
 		}
+		@Override
+
 		public String toString() {
 			return "value: "+this.value+" location: "+this.location+" type: " +this.type;		
 			}
