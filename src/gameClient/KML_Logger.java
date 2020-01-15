@@ -12,4 +12,10 @@ public class KML_Logger {
 	public KML_Logger() {
 		
 	}
+	public void set_all_node(List<node_data> nodelist) {
+		all_node= nodelist;
+	}
+	public List<node_data> get_all_node(){
+		return all_node;
+	}
 }

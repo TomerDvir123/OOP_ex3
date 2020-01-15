@@ -1940,7 +1940,9 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 
 							GamePar now = new GamePar(num,gge);
-
+							//send nodes
+							
+							
 							try {
 								////////////////
 								List<myFruit> test1 = new ArrayList<myFruit>();
