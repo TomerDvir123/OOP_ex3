@@ -752,7 +752,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		menuBar.add(menu);
 		JMenuItem menuItem1 = new JMenuItem("Manual");
 		menuItem1.addActionListener(std);
-		JMenuItem menuItem3 = new JMenuItem("Computer");
+		JMenuItem menuItem3 = new JMenuItem("Automatic");
 		menuItem3.addActionListener(std);
 
 		menu.add(menuItem1);
@@ -1892,7 +1892,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			/////////////////////////////////////
 			//computer////////
 			///////////////////////////////////////
-		case "Computer":
+		case "Automatic":
 			thr2=true;
 			th2 = new Thread(new Runnable() {			
 				@Override
