@@ -25,6 +25,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import Server.Fruit;
 import algorithms_ex3.*;
 import dataStructure_ex3.DGraph;
@@ -51,7 +55,8 @@ public class MyGameGUI implements ActionListener, MouseListener,Serializable
 	double maxx = Integer.MIN_VALUE;
 	double maxy = Integer.MIN_VALUE;
 	long temp1;
-
+	int temp2;
+	
 
 	public MyGameGUI()
 	{
@@ -120,8 +125,12 @@ public class MyGameGUI implements ActionListener, MouseListener,Serializable
 			{
 				StdDraw.setPenColor(Color.BLACK);
                 /////////////////////////////////////
-		        StdDraw.text(minx+0.001,miny, "Time to end :"+(this.temp1/1000));
+		        StdDraw.text(minx+0.001,miny+0.0001, "Time to end :"+(this.temp1/1000));
                 ////////////////////////////////////////////////
+                /////////////////////////////////////
+		        StdDraw.text(minx+0.0004,miny-0.0002, "Result :"+(this.temp2));
+                ////////////////////////////////////////////////
+
 				StdDraw.setPenColor(Color.RED);
 				StdDraw.filledCircle(node.getLocation().x(), node.getLocation().y(), (maxx-minx)*0.005);
 				Collection<edge_data> edd = this.grap.getE(node.getKey());
@@ -183,6 +192,23 @@ public class MyGameGUI implements ActionListener, MouseListener,Serializable
     { 
         this.temp1 = x;   
     }
+//    public void result(String y) 
+//    { 
+//         
+//    	
+//    }
+	public void result (String info) throws JSONException {
+
+		String temp = info.substring(1);
+		int y = temp.indexOf("{");
+		info = info.substring(0, y)+":[{"+info.substring(y+2, info.length()-2)+"}]}";
+		JSONObject jsonObject = new JSONObject(info);
+		JSONArray json_fruit =jsonObject.getJSONArray("GameServer");
+		JSONObject empObj = new JSONObject();
+		empObj = json_fruit.getJSONObject(0);
+		this.temp2 = (int) empObj.get("grade");
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{

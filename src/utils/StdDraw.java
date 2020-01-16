@@ -738,7 +738,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);            // closes all windows
 		// frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);      // closes only current window
-		frame.setTitle("Standard Draw");
+		frame.setTitle("Pacman");
 		frame.setJMenuBar(createMenuBar());
 		frame.pack();
 		frame.requestFocusInWindow();
@@ -758,27 +758,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		menu.add(menuItem1);
 
 		menu.add(menuItem3);
-		///
-		JMenu menu2 = new JMenu("File");
-		menuBar.add(menu2);
-		JMenuItem menuItem2 = new JMenuItem("save");
-		menuItem2.addActionListener(std);
-		menu2.add(menuItem2);
-		JMenuItem menuItem4 = new JMenuItem("load");
-		menuItem4.addActionListener(std);
-		menu2.add(menuItem4);
-		//		JMenuItem menuItem5 = new JMenuItem("shortest Path");
-		//		menuItem5.addActionListener(std);
-		//		menu2.add(menuItem5);
-		//		JMenuItem menuItem6 = new JMenuItem("TSP");
-		//		menuItem6.addActionListener(std);
-		//		menu2.add(menuItem6);
-		//
-		//		JMenu menu3 = new JMenu("test");
-		//		menuBar.add(menu3);
-		//		JMenuItem menuItem7 = new JMenuItem("test1");
-		//		menuItem7.addActionListener(std);
-		//		menu3.add(menuItem7);
 
 		return menuBar;
 	}
@@ -1722,7 +1701,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	boolean thr1=false;
 	boolean thr2=false;
 	long time_game;
-
+	//int result;
+    String result; 
 	@Override
 
 	public void actionPerformed(ActionEvent e) {
@@ -1823,6 +1803,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 							{
 								time_game = game.timeToEnd();
 								ff.setTime(time_game);
+								result = game.toString();
+								ff.result(result);
 								List<String> robots_curr = game.getRobots();
 								rb.clear();
 								now.initRobot(robots_curr);
@@ -2009,6 +1991,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 								
 								time_game = game.timeToEnd();
 								ff.setTime(time_game);
+								result = game.toString();
+								ff.result(result);
 								List<String> robots_curr = game.getRobots();
 								rb.clear();
 								now.initRobot(robots_curr);
