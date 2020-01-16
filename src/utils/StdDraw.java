@@ -1703,6 +1703,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	long time_game;
 	//int result;
     String result; 
+    game_service game;
+    boolean exit=false;
 	@Override
 
 	public void actionPerformed(ActionEvent e) {
@@ -1718,6 +1720,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		switch(act)
 		{
 		case "Manual":
+			if(!exit) {
 			thr1=true;
 			th = new Thread(new Runnable() {			
 				@Override
@@ -1753,7 +1756,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 						}
 
 						if(num!=-1) {
-							game_service game = Game_Server.getServer(num); // you have [0,23] games
+							game = Game_Server.getServer(num); // you have [0,23] games
 							System.out.println(game.getFruits().toString());
 							String g = game.getGraph();
 							DGraph gge = new DGraph();
@@ -1801,6 +1804,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 							myRobot choosen_rob = null;
 							while(game.isRunning()) 
 							{
+								exit = true;
 								time_game = game.timeToEnd();
 								ff.setTime(time_game);
 								result = game.toString();
@@ -1860,7 +1864,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 								ff.setFr_Edge(edg);
 								ff.setG(gge);
 								ff.initGUI();
-							}				
+							}
+							exit=false;
 						}
 						th.interrupt();
 
@@ -1870,11 +1875,18 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 				}
 			});
 			th.start();
+			}
+			else 
+			{
+				JFrame jinput = new JFrame();
+				JOptionPane.showMessageDialog(jinput, "You're in the middle of a game! To exit, press x");
+			}
 			break;
 			/////////////////////////////////////
 			//computer////////
 			///////////////////////////////////////
 		case "Automatic":
+			if(!exit) {
 			thr2=true;
 			th2 = new Thread(new Runnable() {			
 				@Override
@@ -1912,7 +1924,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 
 						if(num!=-1) {
-							game_service game = Game_Server.getServer(num); // you have [0,23] games
+							game = Game_Server.getServer(num); // you have [0,23] games
 							System.out.println(game.getFruits().toString());
 							String g = game.getGraph();
 							DGraph gge = new DGraph();
@@ -1961,15 +1973,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 									tempSum--;
 								}
 								List<String >nma = game.getRobots();
-								System.out.println("list robots: "+nma.toString()+" list");
 								now.initRobot(nma);
-								System.out.println("num of robots: "+sum);
-								//send nodes
-								KML_Logger kml = new KML_Logger();
-								kml.set_now(now);
-								kml.setGame(game);
-								kml.setGraph(gge);
-								kml.openKML();
 
 								
 							} catch (JSONException e2) {
@@ -1986,14 +1990,15 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 							ff.initGUI();
 							game.startGame();
 							myRobot choosen_rob = null;
-
+							
 							while(game.isRunning()) 
 							{
-								
+								exit=true;
 								time_game = game.timeToEnd();
 								ff.setTime(time_game);
 								result = game.toString();
 								ff.result(result);
+							
 								List<String> robots_curr = game.getRobots();
 								rb.clear();
 								now.initRobot(robots_curr);
@@ -2220,6 +2225,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 							}		
 							String res = game.toString();
 							System.out.println(res);
+							exit=false;
+
 						}
 						th2.interrupt();
 
@@ -2229,8 +2236,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 				}
 			});
 			th2.start();
-
+			}
+			else 
+			{
+				JFrame jinput = new JFrame();
+				JOptionPane.showMessageDialog(jinput, "You're in the middle of a game! To exit, press x");
+			}
 			break;
+			
 		default : break;
 		}
 
