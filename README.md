@@ -1,5 +1,6 @@
 # OOP3 readme
-Over the last few weeks we have created a project that deals with Graph algorithms. Now, I will briefly elaborate and write key content of the projWelcome to the OPP3 project wiki of Tomer, Michael and Avi! We are students at Ariel University. Over the last few weeks we have created a project that deals with Graph algorithms. In the project, we created a game that has several fruits that are eaten by robots(In the shortest route). There are two options of computer game - manual or automatic.
+Welcome to the OPP3 project wiki of Tomer, Michael and Avi! We are students at Ariel University. Over the last few weeks we have created a project that deals with Graph algorithms. In the project, we created a game that has several fruits that are eaten by robots(In the shortest route). There are two options of computer game - manual or automatic.
+
 
 
 # Main classes:
