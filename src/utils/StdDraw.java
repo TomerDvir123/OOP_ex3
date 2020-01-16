@@ -1926,12 +1926,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 
 							GamePar now = new GamePar(num,gge);
-							//send nodes
-							KML_Logger kml = new KML_Logger();
-							kml.set_now(now);
-							kml.setGame(game);
-							kml.setGraph(gge);
-							kml.openKML();
 							try {
 								////////////////
 								List<myFruit> test1 = new ArrayList<myFruit>();
@@ -1970,7 +1964,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 								System.out.println("list robots: "+nma.toString()+" list");
 								now.initRobot(nma);
 								System.out.println("num of robots: "+sum);
+								//send nodes
+								KML_Logger kml = new KML_Logger();
+								kml.set_now(now);
+								kml.setGame(game);
+								kml.setGraph(gge);
+								kml.openKML();
 
+								
 							} catch (JSONException e2) {
 								// TODO Auto-generated catch block
 								e2.printStackTrace();
