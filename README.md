@@ -4,19 +4,19 @@ Welcome to the OPP3 project wiki of Tomer, Michael and Avi! We are students at A
 
 
 # Main classes:
-1.DGraph (datastructure)
+1. DGraph (datastructure)
 
-2.Edge (datastructure)
+2. Edge (datastructure)
 
-3.GamePar (gameClient)
+3. GamePar (gameClient)
 
-4.Graph_Algo (algorithms)
+4. Graph_Algo (algorithms)
 
-5.myFruit (gameClient)
+5. myFruit (gameClient)
 
-6.myRobot (gameClient)
+6. myRobot (gameClient)
 
-7.MyGameGUI
+7. MyGameGUI
 
 
 
