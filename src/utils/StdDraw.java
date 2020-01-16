@@ -1721,6 +1721,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	boolean isClicked;
 	boolean thr1=false;
 	boolean thr2=false;
+	long time_game;
 
 	@Override
 
@@ -1820,7 +1821,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 							myRobot choosen_rob = null;
 							while(game.isRunning()) 
 							{
-								long time_game = game.timeToEnd();
+								time_game = game.timeToEnd();
+								ff.setTime(time_game);
 								List<String> robots_curr = game.getRobots();
 								rb.clear();
 								now.initRobot(robots_curr);
@@ -2005,7 +2007,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 							while(game.isRunning()) 
 							{
 								
-								long time_game = game.timeToEnd();
+								time_game = game.timeToEnd();
+								ff.setTime(time_game);
 								List<String> robots_curr = game.getRobots();
 								rb.clear();
 								now.initRobot(robots_curr);

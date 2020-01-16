@@ -50,6 +50,7 @@ public class MyGameGUI implements ActionListener, MouseListener,Serializable
 	double miny = Integer.MAX_VALUE;
 	double maxx = Integer.MIN_VALUE;
 	double maxy = Integer.MIN_VALUE;
+	long temp1;
 
 
 	public MyGameGUI()
@@ -115,9 +116,12 @@ public class MyGameGUI implements ActionListener, MouseListener,Serializable
 		StdDraw.clear();
 		if (this.grap!=null) 
 		{
-			//super.paint();
 			for(node_data node : this.grap.getV())
 			{
+				StdDraw.setPenColor(Color.BLACK);
+                /////////////////////////////////////
+		        StdDraw.text(minx+0.001,miny, "Time to end :"+(this.temp1/1000));
+                ////////////////////////////////////////////////
 				StdDraw.setPenColor(Color.RED);
 				StdDraw.filledCircle(node.getLocation().x(), node.getLocation().y(), (maxx-minx)*0.005);
 				Collection<edge_data> edd = this.grap.getE(node.getKey());
@@ -149,39 +153,36 @@ public class MyGameGUI implements ActionListener, MouseListener,Serializable
 					StdDraw.text((xxxxx+this.grap.getNode(ed.getDest()).getLocation().x())/2,(yyyyy+this.grap.getNode(ed.getDest()).getLocation().y())/2+(maxy-miny)*0.03,""+ans);
 				}
 			}
+		
+			
+			
 
 			if(fruits.size()!=0) 
 			{
-				for (int i = 0; i < fruits.size(); i++) {
+				for (int i = 0; i < fruits.size(); i++) {    // banana
 					if(fruits.get(i).getType() == -1) {
-						StdDraw.setPenColor(Color.GREEN);
-						StdDraw.filledCircle(fruits.get(i).getLocation().x(), fruits.get(i).getLocation().y(),(maxx-minx)*0.005);
-						//StdDraw.filledCircle(node.getLocation().x(), node.getLocation().y(), (maxx-minx)*0.005);
+						StdDraw.picture(fruits.get(i).getLocation().x(), fruits.get(i).getLocation().y(), "banana.PNG",(maxx-minx)*0.02,(maxx-minx)*0.02);
 					}
-					else if(fruits.get(i).getType() == 1){
-						StdDraw.setPenColor(Color.BLUE);
-						StdDraw.filledCircle(fruits.get(i).getLocation().x(), fruits.get(i).getLocation().y(),(maxx-minx)*0.005);
+					else if(fruits.get(i).getType() == 1){   // apple 
+						StdDraw.picture(fruits.get(i).getLocation().x(), fruits.get(i).getLocation().y(), "apple.PNG",(maxx-minx)*0.02,(maxx-minx)*0.02);
 					}
 				}
 			}
 			if(robot.size()!=0) {
-
-
 				for (int i = 0; i < robot.size(); i++)
 				{
-//				System.out.println(robot.toString());
 				StdDraw.setPenColor(Color.black);
-
-			//	StdDraw.filledCircle(robot.get(i).getLocation().x(), robot.get(i).getLocation().y(),(maxx-minx)*0.007);
-				//StdDraw.circle(robot.get(i).getLocation().x(), robot.get(i).getLocation().y(),(maxx-minx)*0.007);
-				StdDraw.picture(robot.get(i).getLocation().x(), robot.get(i).getLocation().y(), "pic.PNG",(maxx-minx)*0.02,(maxx-minx)*0.02);
+				StdDraw.picture(robot.get(i).getLocation().x(), robot.get(i).getLocation().y(), "robot.PNG",(maxx-minx)*0.02,(maxx-minx)*0.02);
 				}
 				}				
-
 		}
+
 		StdDraw.show();
 	}
-
+    public void setTime(long x) 
+    { 
+        this.temp1 = x;   
+    }
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
