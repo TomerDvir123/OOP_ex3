@@ -50,13 +50,12 @@ public class KML_Logger {
 		String upper ="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + 
 				"<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\" xmlns:kml=\"http://www.opengis.net/kml/2.2\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\r\n" + 
 				"<Document>\r\n" + 
-				"	<name>icon.kml</name>\r\n" + 
-				"	<Style id=\"sh_wheel_chair_accessible\">\r\n" + 
+				"	<name>1.kml</name>\r\n" + 
+				"	<Style id=\"sh_ranger_station\">\r\n" + 
 				"		<IconStyle>\r\n" + 
-				"			<color>ffffaa00</color>\r\n" + 
-				"			<scale>1.4</scale>\r\n" + 
+				"			<scale>0.945455</scale>\r\n" + 
 				"			<Icon>\r\n" + 
-				"				<href>http://maps.google.com/mapfiles/kml/shapes/wheel_chair_accessible.png</href>\r\n" + 
+				"				<href>http://maps.google.com/mapfiles/kml/shapes/ranger_station.png</href>\r\n" + 
 				"			</Icon>\r\n" + 
 				"			<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
 				"		</IconStyle>\r\n" + 
@@ -65,30 +64,29 @@ public class KML_Logger {
 				"		<ListStyle>\r\n" + 
 				"		</ListStyle>\r\n" + 
 				"	</Style>\r\n" + 
-				"	<StyleMap id=\"msn_wheel_chair_accessible\">\r\n" + 
+				"	<Style id=\"sn_ranger_station\">\r\n" + 
+				"		<IconStyle>\r\n" + 
+				"			<scale>0.8</scale>\r\n" + 
+				"			<Icon>\r\n" + 
+				"				<href>http://maps.google.com/mapfiles/kml/shapes/ranger_station.png</href>\r\n" + 
+				"			</Icon>\r\n" + 
+				"			<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
+				"		</IconStyle>\r\n" + 
+				"		<BalloonStyle>\r\n" + 
+				"		</BalloonStyle>\r\n" + 
+				"		<ListStyle>\r\n" + 
+				"		</ListStyle>\r\n" + 
+				"	</Style>\r\n" + 
+				"	<StyleMap id=\"msn_ranger_station\">\r\n" + 
 				"		<Pair>\r\n" + 
 				"			<key>normal</key>\r\n" + 
-				"			<styleUrl>#sn_wheel_chair_accessible</styleUrl>\r\n" + 
+				"			<styleUrl>#sn_ranger_station</styleUrl>\r\n" + 
 				"		</Pair>\r\n" + 
 				"		<Pair>\r\n" + 
 				"			<key>highlight</key>\r\n" + 
-				"			<styleUrl>#sh_wheel_chair_accessible</styleUrl>\r\n" + 
+				"			<styleUrl>#sh_ranger_station</styleUrl>\r\n" + 
 				"		</Pair>\r\n" + 
 				"	</StyleMap>\r\n" + 
-				"	<Style id=\"sn_wheel_chair_accessible\">\r\n" + 
-				"		<IconStyle>\r\n" + 
-				"			<color>ffffaa00</color>\r\n" + 
-				"			<scale>1.2</scale>\r\n" + 
-				"			<Icon>\r\n" + 
-				"				<href>http://maps.google.com/mapfiles/kml/shapes/wheel_chair_accessible.png</href>\r\n" + 
-				"			</Icon>\r\n" + 
-				"			<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
-				"		</IconStyle>\r\n" + 
-				"		<BalloonStyle>\r\n" + 
-				"		</BalloonStyle>\r\n" + 
-				"		<ListStyle>\r\n" + 
-				"		</ListStyle>\r\n" + 
-				"	</Style>\r\n" + 
 				"		<name>ED1.kml</name>\r\n" + 
 				"	<StyleMap id=\"m_ylw-pushpin\">\r\n" + 
 				"		<Pair>\r\n" + 
@@ -163,46 +161,7 @@ public class KML_Logger {
 				"			<key>highlight</key>\r\n" + 
 				"			<styleUrl>#sh_motorcycling</styleUrl>\r\n" + 
 				"		</Pair>\r\n" + 
-				"	</StyleMap>\r\n" + 
-				"	<name>fruit.kml</name>\r\n" + 
-				"	<StyleMap id=\"msn_dollar\">\r\n" + 
-				"		<Pair>\r\n" + 
-				"			<key>normal</key>\r\n" + 
-				"			<styleUrl>#sn_dollar</styleUrl>\r\n" + 
-				"		</Pair>\r\n" + 
-				"		<Pair>\r\n" + 
-				"			<key>highlight</key>\r\n" + 
-				"			<styleUrl>#sh_dollar</styleUrl>\r\n" + 
-				"		</Pair>\r\n" + 
-				"	</StyleMap>\r\n" + 
-				"	<Style id=\"sn_dollar\">\r\n" + 
-				"		<IconStyle>\r\n" + 
-				"			<color>ff7fff00</color>\r\n" + 
-				"			<scale>0.7</scale>\r\n" + 
-				"			<Icon>\r\n" + 
-				"				<href>http://maps.google.com/mapfiles/kml/shapes/dollar.png</href>\r\n" + 
-				"			</Icon>\r\n" + 
-				"			<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
-				"		</IconStyle>\r\n" + 
-				"		<BalloonStyle>\r\n" + 
-				"		</BalloonStyle>\r\n" + 
-				"		<ListStyle>\r\n" + 
-				"		</ListStyle>\r\n" + 
-				"	</Style>\r\n" + 
-				"	<Style id=\"sh_dollar\">\r\n" + 
-				"		<IconStyle>\r\n" + 
-				"			<color>ff7fff00</color>\r\n" + 
-				"			<scale>0.827273</scale>\r\n" + 
-				"			<Icon>\r\n" + 
-				"				<href>http://maps.google.com/mapfiles/kml/shapes/dollar.png</href>\r\n" + 
-				"			</Icon>\r\n" + 
-				"			<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
-				"		</IconStyle>\r\n" + 
-				"		<BalloonStyle>\r\n" + 
-				"		</BalloonStyle>\r\n" + 
-				"		<ListStyle>\r\n" + 
-				"		</ListStyle>\r\n" + 
-				"	</Style>";
+				"	</StyleMap>\r\n" ;
 
 		String ans="";
 		for (node_data nd : keep_node) {
@@ -217,7 +176,7 @@ public class KML_Logger {
 					"				<range>105178.7509273705</range>\r\n" + 
 					"				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>\r\n" + 
 					"			</LookAt>\r\n" + 
-					"			<styleUrl>#msn_wheel_chair_accessible</styleUrl>\r\n" + 
+					"			<styleUrl>#msn_ranger_station</styleUrl>\r\n" + 
 					"			<Point>\r\n" + 
 					"				<gx:drawOrder>1</gx:drawOrder>\r\n" + 
 					"				<coordinates>"+nd.getLocation().x()+","+nd.getLocation().y()+",0</coordinates>\r\n" + 
@@ -328,28 +287,130 @@ public class KML_Logger {
 		String fruit = "" ;
 		//grap.getNode(mF.getsrc().getSrc()).getKey()
 		for (myFruit mF : all_fruit) {
-			String temp = "<Placemark>\r\n" + 
+			if(mF.getType()==-1) {
+			String temp = "<name>ssss.kml</name>\r\n" + 
+					"	<StyleMap id=\"msn_euro\">\r\n" + 
+					"		<Pair>\r\n" + 
+					"			<key>normal</key>\r\n" + 
+					"			<styleUrl>#sn_euro</styleUrl>\r\n" + 
+					"		</Pair>\r\n" + 
+					"		<Pair>\r\n" + 
+					"			<key>highlight</key>\r\n" + 
+					"			<styleUrl>#sh_euro</styleUrl>\r\n" + 
+					"		</Pair>\r\n" + 
+					"	</StyleMap>\r\n" + 
+					"	<Style id=\"sn_euro\">\r\n" + 
+					"		<IconStyle>\r\n" + 
+					"			<scale>1.2</scale>\r\n" + 
+					"			<Icon>\r\n" + 
+					"				<href>http://maps.google.com/mapfiles/kml/shapes/euro.png</href>\r\n" + 
+					"			</Icon>\r\n" + 
+					"			<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
+					"		</IconStyle>\r\n" + 
+					"		<BalloonStyle>\r\n" + 
+					"		</BalloonStyle>\r\n" + 
+					"		<ListStyle>\r\n" + 
+					"		</ListStyle>\r\n" + 
+					"	</Style>\r\n" + 
+					"	<Style id=\"sh_euro\">\r\n" + 
+					"		<IconStyle>\r\n" + 
+					"			<scale>1.4</scale>\r\n" + 
+					"			<Icon>\r\n" + 
+					"				<href>http://maps.google.com/mapfiles/kml/shapes/euro.png</href>\r\n" + 
+					"			</Icon>\r\n" + 
+					"			<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
+					"		</IconStyle>\r\n" + 
+					"		<BalloonStyle>\r\n" + 
+					"		</BalloonStyle>\r\n" + 
+					"		<ListStyle>\r\n" + 
+					"		</ListStyle>\r\n" + 
+					"	</Style>\r\n" + 
+					"	<Placemark>\r\n" + 
 					"		<name></name>\r\n" + 
-					"		<LookAt>\r\n" + 
-					"			<longitude>35.20049765372926</longitude>\r\n" + 
-					"			<latitude>32.10519390930328</latitude>\r\n" + 
-					"			<altitude>0</altitude>\r\n" + 
-					"			<heading>0.04871208709312937</heading>\r\n" + 
-					"			<tilt>48.08517247511922</tilt>\r\n" + 
-					"			<range>2516.536413792175</range>\r\n" + 
+					"		<Camera>\r\n" + 
+					"			<longitude>45.30783826982074</longitude>\r\n" + 
+					"			<latitude>38.61056557598812</latitude>\r\n" + 
+					"			<altitude>1575.476434584097</altitude>\r\n" + 
+					"			<heading>4.241565502288204</heading>\r\n" + 
+					"			<tilt>21.68983571564891</tilt>\r\n" + 
+					"			<roll>0.7847198150865365</roll>\r\n" + 
 					"			<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>\r\n" + 
-					"		</LookAt>\r\n" + 
+					"		</Camera>\r\n" + 
 					"		<TimeSpan>\r\n" + 
 					"            <begin>"+timeStart+"</begin>\r\n" + 
 					"            <end>"+timeEnd+"</end>\r\n" + 
 					"        </TimeSpan>\r\n" + 
-					"		<styleUrl>#msn_dollar</styleUrl>\r\n" + 
+					"		<styleUrl>#msn_euro</styleUrl>\r\n" + 
 					"		<Point>\r\n" + 
 					"			<gx:drawOrder>1</gx:drawOrder>\r\n" + 
 					"			<coordinates>"+mF.getLocation().x()+","+mF.getLocation().y()+",0</coordinates>\r\n" + 
 					"		</Point>\r\n" + 
 					"	</Placemark>";
 			fruit = fruit + temp;
+			}
+			else if(mF.getType()==1) {
+				String temp = 	"<name>fruit.kml</name>\r\n" + 
+						"	<StyleMap id=\"msn_dollar\">\r\n" + 
+						"		<Pair>\r\n" + 
+						"			<key>normal</key>\r\n" + 
+						"			<styleUrl>#sn_dollar</styleUrl>\r\n" + 
+						"		</Pair>\r\n" + 
+						"		<Pair>\r\n" + 
+						"			<key>highlight</key>\r\n" + 
+						"			<styleUrl>#sh_dollar</styleUrl>\r\n" + 
+						"		</Pair>\r\n" + 
+						"	</StyleMap>\r\n" + 
+						"	<Style id=\"sn_dollar\">\r\n" + 
+						"		<IconStyle>\r\n" + 
+						"			<color>ff0000ff</color>\r\n" + 
+						"			<scale>1.18182</scale>\r\n" + 
+						"			<Icon>\r\n" + 
+						"				<href>http://maps.google.com/mapfiles/kml/shapes/dollar.png</href>\r\n" + 
+						"			</Icon>\r\n" + 
+						"			<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
+						"		</IconStyle>\r\n" + 
+						"		<BalloonStyle>\r\n" + 
+						"		</BalloonStyle>\r\n" + 
+						"		<ListStyle>\r\n" + 
+						"		</ListStyle>\r\n" + 
+						"	</Style>\r\n" + 
+						"	<Style id=\"sh_dollar\">\r\n" + 
+						"		<IconStyle>\r\n" + 
+						"			<color>ff0000ff</color>\r\n" + 
+						"			<scale>1.18182</scale>\r\n" + 
+						"			<Icon>\r\n" + 
+						"				<href>http://maps.google.com/mapfiles/kml/shapes/dollar.png</href>\r\n" + 
+						"			</Icon>\r\n" + 
+						"			<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
+						"		</IconStyle>\r\n" + 
+						"		<BalloonStyle>\r\n" + 
+						"		</BalloonStyle>\r\n" + 
+						"		<ListStyle>\r\n" + 
+						"		</ListStyle>\r\n" + 
+						"	</Style>" + 
+						"	<Placemark>\r\n" + 
+						"		<name></name>\r\n" + 
+						"		<Camera>\r\n" + 
+						"			<longitude>45.30783826982074</longitude>\r\n" + 
+						"			<latitude>38.61056557598812</latitude>\r\n" + 
+						"			<altitude>1575.476434584097</altitude>\r\n" + 
+						"			<heading>4.241565502288204</heading>\r\n" + 
+						"			<tilt>21.68983571564891</tilt>\r\n" + 
+						"			<roll>0.7847198150865365</roll>\r\n" + 
+						"			<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>\r\n" + 
+						"		</Camera>\r\n" + 
+						"		<TimeSpan>\r\n" + 
+						"            <begin>"+timeStart+"</begin>\r\n" + 
+						"            <end>"+timeEnd+"</end>\r\n" + 
+						"        </TimeSpan>\r\n" + 
+						"		<styleUrl>#msn_dollar</styleUrl>" + 
+						"		<Point>\r\n" + 
+						"			<gx:drawOrder>1</gx:drawOrder>\r\n" + 
+						"			<coordinates>"+mF.getLocation().x()+","+mF.getLocation().y()+",0</coordinates>\r\n" + 
+						"		</Point>\r\n" + 
+						"	</Placemark>";
+				fruit = fruit + temp;
+			}
 			String KML = robot+fruit;
 		
 			all_kml+=KML;
@@ -361,7 +422,7 @@ public class KML_Logger {
 				"</kml>";
 		all_kml+=bottom;
 		try {
-			FileWriter f1 = new FileWriter("test1.kml");
+			FileWriter f1 = new FileWriter(now.scene+".kml");
 			f1.write(all_kml);
 			f1.close();
 
