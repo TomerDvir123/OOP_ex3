@@ -2039,7 +2039,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 							Long timeLeft = game.timeToEnd();
 							while(game.isRunning()) 
 							{
-								if(timeLeft-game.timeToEnd()>30) 
+								if(timeLeft-game.timeToEnd()>65) 
 								{
 									game.move();
 									timeLeft=game.timeToEnd();
