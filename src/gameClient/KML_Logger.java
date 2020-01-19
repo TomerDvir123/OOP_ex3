@@ -279,7 +279,7 @@ public class KML_Logger {
 					"			<gx:drawOrder>1</gx:drawOrder>\r\n" + 
 					"			<coordinates>"+rb.getLocation().x()+","+rb.getLocation().y()+",0</coordinates>\r\n" + 
 					"		</Point>\r\n" + 
-					"	</Placemark>";
+					"	</Placemark>\r\n";
 			robot=robot+temp;
 		}
 	
@@ -345,7 +345,7 @@ public class KML_Logger {
 					"			<gx:drawOrder>1</gx:drawOrder>\r\n" + 
 					"			<coordinates>"+mF.getLocation().x()+","+mF.getLocation().y()+",0</coordinates>\r\n" + 
 					"		</Point>\r\n" + 
-					"	</Placemark>";
+					"	</Placemark>\r\n";
 			fruit = fruit + temp;
 			}
 			else if(mF.getType()==1) {
@@ -408,7 +408,7 @@ public class KML_Logger {
 						"			<gx:drawOrder>1</gx:drawOrder>\r\n" + 
 						"			<coordinates>"+mF.getLocation().x()+","+mF.getLocation().y()+",0</coordinates>\r\n" + 
 						"		</Point>\r\n" + 
-						"	</Placemark>";
+						"	</Placemark>\r\n";
 				fruit = fruit + temp;
 			}
 			String KML = robot+fruit;
