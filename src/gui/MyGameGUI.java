@@ -54,9 +54,9 @@ public class MyGameGUI implements ActionListener, MouseListener,Serializable
 	double miny = Integer.MAX_VALUE;
 	double maxx = Integer.MIN_VALUE;
 	double maxy = Integer.MIN_VALUE;
-	long temp1;
-	int temp2;
-	
+	long temp1;   // time of game
+	int temp2;    // result of the game
+	 
 
 	public MyGameGUI()
 	{
@@ -124,12 +124,12 @@ public class MyGameGUI implements ActionListener, MouseListener,Serializable
 			for(node_data node : this.grap.getV())
 			{
 				StdDraw.setPenColor(Color.BLACK);
-                /////////////////////////////////////
+                /////////////////////////////////////show the time of the game////////////////////////
 		        StdDraw.text(minx+0.001,miny+0.0001, "Time to end :"+(this.temp1/1000));
-                ////////////////////////////////////////////////
-                /////////////////////////////////////
+                //////////////////////////////////////////////////////////////////////////////////////
+                /////////////////////////////////////show the result of the game////////////////////////////
 		        StdDraw.text(minx+0.0004,miny-0.0002, "Result :"+(this.temp2));
-                ////////////////////////////////////////////////
+                ///////////////////////////////////////////////////////////////////////////////////////////
 
 				StdDraw.setPenColor(Color.RED);
 				StdDraw.filledCircle(node.getLocation().x(), node.getLocation().y(), (maxx-minx)*0.005);

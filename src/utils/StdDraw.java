@@ -1740,23 +1740,18 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	boolean thr1=false;
 	boolean thr2=false;
 	long time_game;
-	//int result;
 	String result; 
+    boolean exit=false;
+
 	@Override
 
 	public void actionPerformed(ActionEvent e) {
-		//			FileDialog chooser = new FileDialog(StdDraw.frame, "Use a .png or .jpg extension", FileDialog.SAVE);
-		//			chooser.setVisible(true);
-		//			String filename = chooser.getFile();
-		//			if (filename != null) 
-		//			{
-		//				StdDraw.save(chooser.getDirectory() + File.separator + chooser.getFile());
-		//			}
-
 		String act = e.getActionCommand();
 		switch(act)
 		{
 		case "Manual":
+			if(!exit) {
+
 			thr1=true;
 			th = new Thread(new Runnable() {			
 				@Override
@@ -1842,7 +1837,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 							while(game.isRunning()) 
 							{
 
-
+								exit = true;
 								time_game = game.timeToEnd();
 								ff.setTime(time_game);
 								result = game.toString();
@@ -1902,7 +1897,9 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 								ff.setFr_Edge(edg);
 								ff.setG(gge);
 								ff.initGUI();
-							}				
+							}	
+							exit=false;
+
 						}
 						th.interrupt();
 
@@ -1912,11 +1909,20 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 				}
 			});
 			th.start();
+			}
+			else 
+			{
+				JFrame jinput = new JFrame();
+				JOptionPane.showMessageDialog(jinput, "You're in the middle of a game! To exit, press x");
+			}
+
 			break;
 			/////////////////////////////////////
 			//computer////////
 			///////////////////////////////////////
 		case "Automatic":
+			if(!exit) {
+
 			thr2=true;
 			th2 = new Thread(new Runnable() {			
 				@Override
@@ -2034,7 +2040,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 							Long timeLeft = game.timeToEnd();
 							while(game.isRunning()) 
 							{
-								if(timeLeft-game.timeToEnd()>100) 
+								if(timeLeft-game.timeToEnd()>30) 
 								{
 									game.move();
 									timeLeft=game.timeToEnd();
@@ -2044,17 +2050,9 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 									now.initRobot(b);
 									List<myFruit> ffffff = now.getfruit();
 									List<myRobot> gggggg = now.getrobot();
-									//									long timeToSleep = 100;
-									//									String start = java.time.LocalDate.now()+"T"+java.time.LocalTime.now();
-									//									LocalTime current = LocalTime.now();
-									//									current= current.plusNanos(timeToSleep*1000000);
-									//
-									////									String end = 
-									////									kml.restart_fr_rb(gggggg, ffffff , start ,end);
-									//									timeLeft = game.timeToEnd();
 									
 								}
-
+								exit=true;
 								time_game = game.timeToEnd();
 								ff.setTime(time_game);
 								result = game.toString();
@@ -2076,83 +2074,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 								ff.setFr_Edge(edg);
 								ff.setG(gge);
 								ff.initGUI();
-								///////////////////////////////////////////////////////////////////
-								//			       for(node_data j : gge.getV() ) 
-								//			       {
-								//					    Point3D dest_pos = j.getLocation();	
-								//					    game.chooseNextEdge(choosen_rob.getId() , j.getKey());
-								//			       }
-								//								int ffff = 13;
-								//								while(ffff>=0) 
-								//								{
-								//					System.out.println(ffff);
-								//									List<String> log = game.move();
-								//									JSONObject line;
-								//									try {
-								//									String robot_json = log.get(0);
-								//									line = new JSONObject(robot_json);
-								//									JSONObject ttt = line.getJSONObject("Robot");
-								//									int rid = ttt.getInt("id");
-								//									int src = ttt.getInt("src");
-								//									int dest = ttt.getInt("dest");
-								//									if(dest==-1) {
-								//										game.chooseNextEdge(0 , ffff);
-								//										//game.move();
-								//										ffff--;	
-								//									}
-								//									}catch (Exception e) {
-								//										e.printStackTrace();
-								//									}
-
-								//								List<myFruit> FR = now.getfruit();
-								//								List<myRobot> RB = now.getrobot();
-								//								double mini = Double.MAX_VALUE;
-								//								Graph_Algo algo = new Graph_Algo();
-								//								algo.init(gge);
-								//								myRobot tempRobot=null;
-								//								
-								//								for (myFruit myFr : FR) 
-								//								{
-								//									 mini=Double.MAX_VALUE;
-								//									for (myRobot myRb : RB) 
-								//									{
-								//										if(algo.shortestPathDist(myRb.getSrc(), myFr.getsrc().getDest())<mini) {
-								//											mini = algo.shortestPathDist(myRb.getSrc() , myFr.getsrc().getDest());
-								//											 tempRobot = myRb;
-								//										}
-								//										
-								//									}
-								//									
-								//									List<node_data> way = algo.shortestPath(tempRobot.getSrc() , myFr.getsrc().getDest());
-								//									
-								//									for (int i = way.size()-2; i >=0  ; i--) {
-								//										game.chooseNextEdge(tempRobot.getId() , way.get(i).getKey());
-								//										game.move();
-								////										List<String> tem = game.getFruits();
-								////										FR.clear();
-								////										now.initFruit(tem);
-								////										FR=now.getfruit();
-								////										now.initFruit(game.getFruits());
-								////										FR = game.getfruit();
-								//										
-
-								//										List<myFruit> tp = new ArrayList<myFruit>();
-								//										List<String> wasd = game.getFruits();
-								//										for (String string : wasd) {
-								//											myFruit asdff = new myFruit();
-								//											asdff.initFromJson(string);
-								//											tp.add(asdff);
-								//										}
-								//										FR=tp;
-								//										
-								//										
-								//									}
-								/////////////////////////
-
-
-								//////////////////
-
-
 								myFruit tempFru = null;
 								List<myFruit> FR = now.getfruit();
 								List<myRobot> RB = now.getrobot();
@@ -2168,83 +2089,26 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 										List<myFruit> tp = new ArrayList<myFruit>();
 										List<String> wasd = game.getFruits();
 
-										//										for (String string : wasd) {
-										//											myFruit asdff = new myFruit();
-										//											asdff.initFromJson(string);
-										//											tp.add(asdff);
-										//										}
-										//											FR=tp;
-										//									now.initFruit(game.getFruits());
-										//									FR=now.getfruit();
-
-										//*****************************
 										for (myFruit myFr : FR) 
 										{
-											//if(myFr.getEat()==false) {
-											//											if(myRb.getSrc()==myFr.getsrc().getDest() && myRb.getSrc()!=0 ) 
-											//											{
-											//												myRb.setSrc(myRb.getSrc()-1);
-											//												game.chooseNextEdge(myRb.getId() , myRb.getSrc());
-											//												game.move();
-											//											}
-
 											if(algo.shortestPathDist(myRb.getSrc(), myFr.getsrc().getSrc())<mini ) {		
 												mini = algo.shortestPathDist(myRb.getSrc() , myFr.getsrc().getSrc())+myFr.getsrc().getWeight();
 												tempFru = myFr;
 
 											}
-											//}
-
 										}
-										//tempFru.setEat();
 										List<node_data> way = algo.shortestPath(myRb.getSrc() , tempFru.getsrc().getSrc());
 										node_data nd = gge.getNode(tempFru.getsrc().getDest());
 										way.add(0, nd);
 
 										for ( int i = way.size()-2; i >=0  ; i--) {
-											//System.out.println(myRb.getId() + " Moves to " + way.get(i).getKey());
 											game.chooseNextEdge(myRb.getId() , way.get(i).getKey());
-											//										game.move();
-											//										List<String> tem = game.getFruits();
-											//										FR.clear();
-											//										now.initFruit(tem);
-											//										FR=now.getfruit();
-											//										now.initFruit(game.getFruits());
-											//										FR = game.getfruit();
-
-											//										 tp = new ArrayList<myFruit>();
-											//										 wasd = game.getFruits();
-											//										for (String string : wasd) {
-											//											myFruit asdff = new myFruit();
-											//											asdff.initFromJson(string);
-											//											tp.add(asdff);
-											//										}
-											//										FR=tp;
 
 										}
 
-										//*****************************
-										//									System.out.println("path:"+myRb.getSrc()+"dest"+tempFru.getsrc().getDest() );
-
-										//									game.move();
 										now.initFruit(game.getFruits());
 										FR=now.getfruit();
-										///////////////////////////
 									}
-
-									//									game.chooseNextEdge(0 , ffff);
-									//									game.move();
-									//									fr.clear();
-									//									now.initFruit(fruits_curr);
-									//									ff.setFr(fr);
-									//									rb.clear();
-									//									now.initRobot(robots_curr);
-									//									ff.setrb(rb);
-									//									edg =now.fruit_edges();
-									//									ff.setFr_Edge(edg);
-									//									ff.setG(gge);
-									//									//ff.initGUI();
-									//									ff.paint();
 
 									List<myFruit> test1 = new ArrayList<myFruit>();
 									List<String> qwer = game.getFruits();
@@ -2265,10 +2129,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 									ff.setrb(test2);
 
 									ff.paint();
-									//System.out.println(game.move().toString());
-									//}
 								}
-								//								game.move();
 								fr.clear();
 								now.initFruit(fruits_curr);
 								ff.setFr(fr);
@@ -2278,15 +2139,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 								edg =now.fruit_edges();
 								ff.setFr_Edge(edg);
 								ff.setG(gge);
-								//ff.initGUI();
-								//								game.move();
 								ff.paint();
 
 							}		
-							///saves kml
 							kml.saveKML();
 							String res = game.toString();
 							System.out.println(res);
+							exit=false;
+
 						}
 						th2.interrupt();
 
@@ -2296,7 +2156,12 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 				}
 			});
 			th2.start();
-
+			}
+			else 
+			{
+				JFrame jinput = new JFrame();
+				JOptionPane.showMessageDialog(jinput, "You're in the middle of a game! To exit, press x");
+			}
 			break;
 		default : break;
 		}
