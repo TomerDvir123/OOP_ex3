@@ -1832,8 +1832,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 							ff.setG(gge);
 							ff.initGUI();
 							game.startGame();
-							myRobot choosen_rob = null;
-
+							myRobot choosen_rob = new myRobot();
 							while(game.isRunning()) 
 							{
 
