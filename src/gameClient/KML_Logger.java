@@ -21,7 +21,7 @@ public class KML_Logger {
 	game_service game;
 	GamePar now;
 	graph grap;
-
+	String all_kml="";
 	public KML_Logger() {
 
 	}
@@ -207,7 +207,7 @@ public class KML_Logger {
 		String ans="";
 		for (node_data nd : keep_node) {
 			String points ="<Placemark>\r\n" + 
-					"			<name>"+ nd.getKey()+"</name>\r\n" + 
+					"			<name></name>\r\n" + 
 					"			<LookAt>\r\n" + 
 					"				<longitude>34.8960629819371</longitude>\r\n" + 
 					"				<latitude>31.51045941503297</latitude>\r\n" + 
@@ -249,93 +249,120 @@ public class KML_Logger {
 			}
 		}
 		String KML = upper+ans+edge;
-//		while(game.isRunning()) {
-//
-//			long var = System.currentTimeMillis() / 1000;
-//			double var2 = var %2;
-//
-//			if(var2 == 1.0)
-//			{
-				//every 1 second 
-				try {
+		//					now.initRobot(game.getRobots());
+		//					now.initFruit(game.getFruits());
 
-					
-					now.initRobot(game.getRobots());
-					now.initFruit(game.getFruits());
-					
-					List<myRobot> all_robot = now.getrobot();
-					List<myFruit> all_fruit = now.getfruit();
-					
-					String robot = "";
-					for (myRobot rb: all_robot) {
-						String temp = "<Placemark>\r\n" + 
-								"		<name>"+rb.id+"</name>\r\n" + 
-								"		<LookAt>\r\n" + 
-								"			<longitude>35.20057915651626</longitude>\r\n" + 
-								"			<latitude>32.10642421692141</latitude>\r\n" + 
-								"			<altitude>0</altitude>\r\n" + 
-								"			<heading>0.001400841528527689</heading>\r\n" + 
-								"			<tilt>48.82445584719025</tilt>\r\n" + 
-								"			<range>2429.727375786245</range>\r\n" + 
-								"			<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>\r\n" + 
-								"		</LookAt>\r\n" + 
-								"		<styleUrl>#msn_motorcycling</styleUrl>\r\n" + 
-								"		<Point>\r\n" + 
-								"			<gx:drawOrder>1</gx:drawOrder>\r\n" + 
-								"			<coordinates>"+rb.getLocation().x()+","+rb.getLocation().y()+",0</coordinates>\r\n" + 
-								"		</Point>\r\n" + 
-								"	</Placemark>";
-						robot=robot+temp;
-					}
-					KML = KML + robot;
-					
-					String fruit = "" ;
-					//grap.getNode(mF.getsrc().getSrc()).getKey()
-					for (myFruit mF : all_fruit) {
-						String temp = "<Placemark>\r\n" + 
-								"		<name>"+mF.getType()+"</name>\r\n" + 
-								"		<LookAt>\r\n" + 
-								"			<longitude>35.20049765372926</longitude>\r\n" + 
-								"			<latitude>32.10519390930328</latitude>\r\n" + 
-								"			<altitude>0</altitude>\r\n" + 
-								"			<heading>0.04871208709312937</heading>\r\n" + 
-								"			<tilt>48.08517247511922</tilt>\r\n" + 
-								"			<range>2516.536413792175</range>\r\n" + 
-								"			<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>\r\n" + 
-								"		</LookAt>\r\n" + 
-								"		<styleUrl>#msn_dollar</styleUrl>\r\n" + 
-								"		<Point>\r\n" + 
-								"			<gx:drawOrder>1</gx:drawOrder>\r\n" + 
-								"			<coordinates>"+mF.getLocation().x()+","+mF.getLocation().y()+",0</coordinates>\r\n" + 
-								"		</Point>\r\n" + 
-								"	</Placemark>";
-						fruit = fruit + temp;
-					}
-					KML = KML + fruit;
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-//			}
-//
-//		}
-
-		String bottom = "	</Document>\r\n" + 
-				"</kml>";
-		
-		 KML = KML+bottom;
-
-
-		saveKML(KML);
+		//////
+//		String bottom = "	</Document>\r\n" + 
+//				"</kml>";
+//		
+//		KML = KML+bottom;
+		//all_kml= new StringBuilder();
+		all_kml+=KML;
+		//saveKML(KML);
 
 		//start save the file
 	}
+	
+	public void restart_fr_rb(String timeStart ,String timeEnd) {
 
-	public void saveKML(String KML) {
+		
+//		try {
+//			now.initRobot(game.getRobots());
+//			now.initFruit(game.getFruits());
+//			
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+//		List<myRobot> all_robot = now.getrobot();
+//		List<myFruit> all_fruit = now.getfruit();
+		List<myRobot> all_robot = new ArrayList<myRobot>();
+		List<myFruit> all_fruit = new ArrayList<myFruit>();
+		try {
+		
+		List<String> aweae = game.getRobots();
+		for (String string : aweae) {
+			
+			all_robot.add(new myRobot(string));
+		}
+		
+		List<String> qweqwe = game.getFruits();
+		for (String string : qweqwe) {
+			myFruit rrrrtt = new myFruit();
+			rrrrtt.initFromJson(string);
+			all_fruit.add(rrrrtt );
+		}
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		String robot = "";
+		for (myRobot rb : all_robot) {
+			String temp = "<Placemark>\r\n" + 
+					"		<name></name>\r\n" + 
+					"		<LookAt>\r\n" + 
+					"			<longitude>35.20057915651626</longitude>\r\n" + 
+					"			<latitude>32.10642421692141</latitude>\r\n" + 
+					"			<altitude>0</altitude>\r\n" + 
+					"			<heading>0.001400841528527689</heading>\r\n" + 
+					"			<tilt>48.82445584719025</tilt>\r\n" + 
+					"			<range>2429.727375786245</range>\r\n" + 
+					"			<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>\r\n" + 
+					"		</LookAt>\r\n" + 
+					"		<TimeSpan>\r\n" + 
+					"            <begin>"+timeStart+"</begin>\r\n" + 
+					"            <end>"+timeEnd+"</end>\r\n" + 
+					"        </TimeSpan>\r\n" + 
+					"		<styleUrl>#msn_motorcycling</styleUrl>\r\n" + 
+					"		<Point>\r\n" + 
+					"			<gx:drawOrder>1</gx:drawOrder>\r\n" + 
+					"			<coordinates>"+rb.getLocation().x()+","+rb.getLocation().y()+",0</coordinates>\r\n" + 
+					"		</Point>\r\n" + 
+					"	</Placemark>";
+			robot=robot+temp;
+		}
+	
+
+		String fruit = "" ;
+		//grap.getNode(mF.getsrc().getSrc()).getKey()
+		for (myFruit mF : all_fruit) {
+			String temp = "<Placemark>\r\n" + 
+					"		<name></name>\r\n" + 
+					"		<LookAt>\r\n" + 
+					"			<longitude>35.20049765372926</longitude>\r\n" + 
+					"			<latitude>32.10519390930328</latitude>\r\n" + 
+					"			<altitude>0</altitude>\r\n" + 
+					"			<heading>0.04871208709312937</heading>\r\n" + 
+					"			<tilt>48.08517247511922</tilt>\r\n" + 
+					"			<range>2516.536413792175</range>\r\n" + 
+					"			<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>\r\n" + 
+					"		</LookAt>\r\n" + 
+					"		<TimeSpan>\r\n" + 
+					"            <begin>"+timeStart+"</begin>\r\n" + 
+					"            <end>"+timeEnd+"</end>\r\n" + 
+					"        </TimeSpan>\r\n" + 
+					"		<styleUrl>#msn_dollar</styleUrl>\r\n" + 
+					"		<Point>\r\n" + 
+					"			<gx:drawOrder>1</gx:drawOrder>\r\n" + 
+					"			<coordinates>"+mF.getLocation().x()+","+mF.getLocation().y()+",0</coordinates>\r\n" + 
+					"		</Point>\r\n" + 
+					"	</Placemark>";
+			fruit = fruit + temp;
+			String KML = robot+fruit;
+		
+			all_kml+=KML;
+}
+	}
+
+	public void saveKML() {
+		String bottom = "	</Document>\r\n" + 
+				"</kml>";
+		all_kml+=bottom;
 		try {
 			FileWriter f1 = new FileWriter("test1.kml");
-			f1.write(KML);
+			f1.write(all_kml);
 			f1.close();
 
 			//			FileOutputStream f = new FileOutputStream(new File("test1.kml"));
@@ -345,6 +372,7 @@ public class KML_Logger {
 			//			o.writeObject(KML);
 			//			o.close();
 			//			f.close();
+			System.out.println("finished file");
 		} catch (RuntimeException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
