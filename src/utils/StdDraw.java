@@ -62,6 +62,12 @@ import java.io.IOException;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Ref;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -100,6 +106,7 @@ import dataStructure_ex3.node_data;
 import gameClient.GamePar;
 import gameClient.Game_par;
 import gameClient.KML_Logger;
+import gameClient.SimpleDB;
 import gameClient.myFruit;
 import gameClient.myRobot;
 import gui.MyGameGUI;
@@ -510,7 +517,7 @@ import gui.Graph_GUI;
  */
 public final class StdDraw implements ActionListener, MouseListener, MouseMotionListener, KeyListener {
 
-
+	static int numOfgames;
 	static Graph_GUI gg;
 	static MyGameGUI ff;
 	double cx;
@@ -752,16 +759,37 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	// create the menu bar (changed to private)
 	private static JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
+		
 		JMenu menu = new JMenu("Games");		
 		menuBar.add(menu);
+		
+		
+		JMenu menu2 = new JMenu("Info");		
+		menuBar.add(menu2);
+
+		
+		
 		JMenuItem menuItem1 = new JMenuItem("Manual");
 		menuItem1.addActionListener(std);
 		JMenuItem menuItem3 = new JMenuItem("Automatic");
 		menuItem3.addActionListener(std);
+		
+		JMenuItem menuItem4 = new JMenuItem("Game info");
+		menuItem4.addActionListener(std);
+		
+		JMenuItem menuItem5 = new JMenuItem("Best results");
+		menuItem5.addActionListener(std);
+
 
 		menu.add(menuItem1);
 
 		menu.add(menuItem3);
+		
+		menu2.add(menuItem4);
+		
+		menu2.add(menuItem5);
+
+
 
 		return menuBar;
 	}
@@ -1752,6 +1780,22 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		String act = e.getActionCommand();
 		switch(act)
 		{
+		case "Best results":
+			String ans = printLog();
+			JFrame jinput5 = new JFrame();
+			jinput5.setTitle("Best results");
+			
+			JOptionPane.showMessageDialog(jinput5,ans);
+
+			break;
+		case "Game info":
+			//Game_Server.login(205682719); 
+			JFrame jinput = new JFrame();
+			int numOfGames = func();
+			String a = ""+numOfGames ;
+			JOptionPane.showMessageDialog(jinput, "Num of games: " +a+"\nCurrent stage: "+23);
+
+			break;
 		case "Manual":
 			if(!exit) {
 
@@ -1901,8 +1945,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			}
 			else 
 			{
-				JFrame jinput = new JFrame();
-				JOptionPane.showMessageDialog(jinput, "You're in the middle of a game! To exit, press x");
+				JFrame jinput2 = new JFrame();
+				JOptionPane.showMessageDialog(jinput2, "You're in the middle of a game! To exit, press x");
 			}
 
 			break;
@@ -1916,7 +1960,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 				th2 = new Thread(new Runnable() {			
 					@Override
 					public void run() {
-						//try {
+						
 						boolean flag = false;
 						int num = -1;
 						JFrame jinput = new JFrame();
@@ -1946,27 +1990,28 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 							}
 						}
 						game_service game = Game_Server.getServer(num); // you have [0,23] games
-						System.out.println(game.getFruits().toString());
 						String g = game.getGraph();
 						DGraph gge = new DGraph();
 						gge.init(g);
 						GamePar now = new GamePar(num,gge);
-						KML_Logger kml = new KML_Logger();
 						now.initFruit(game.getFruits());	
 						String ttt = game.toString();
 						System.out.println(ttt);
 						int sum = now.numRobot(ttt);
 						int tempSum = sum;
 						List <edge_data> ooo = now.fruit_edges();
+//						for (edge_data edge_data : ooo) {
+//						System.out.println("fr"+edge_data.getSrc());
+//						}
 						while(tempSum>0)
 						{
+							
 							game.addRobot(ooo.get(0).getSrc());
 							ooo.remove(0);
 							tempSum--;
 						}
 						List<String >nma = game.getRobots();
 						now.initRobot(nma);
-						//send nodes
 
 						kml.set_now(now);
 						kml.setGame(game);
@@ -1983,7 +2028,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 						ff.initGUI();
 						Game_Server.login(205682719);
 
-					//	System.out.println(game.toString());
 						game.startGame();
 						KMLthread(game);
 
@@ -1991,12 +2035,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 						List<myFruit> FR = new ArrayList<myFruit>();
 						while(game.isRunning()) 
 						{
-							if(timeLeft-game.timeToEnd()>100) 
+							if(timeLeft-game.timeToEnd()>50) 
 							{
 								game.move();
 								timeLeft=game.timeToEnd(); 
-
-
 							}
 							exit=true;
 							time_game = game.timeToEnd();
@@ -2006,16 +2048,12 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 							List<String> robots_curr = game.getRobots();
 							rb.clear();
 							now.initRobot(robots_curr);
-//							List<String> fruits_curr = game.getFruits();
 							fr.clear();
 							ff.setFr(fr);
 							ff.setrb(rb);
 							ff.setFr_Edge(edg);
 							ff.setG(gge);
-							//ff.paint();
-							//	ff.initGUI();
 							myFruit tempFru = null;
-							//List<myFruit> FR = now.getfruit();
 							List<myRobot> RB = now.getrobot();
 							double mini = Double.MAX_VALUE;
 							Graph_Algo algo = new Graph_Algo();
@@ -2027,6 +2065,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 							}
 							for (myRobot myRb : RB) 
 							{
+							
 								if(myRb.getDest()==-1) {								
 									mini=Double.MAX_VALUE;
 									for (myFruit myFr : FR) 
@@ -2046,26 +2085,11 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 										game.chooseNextEdge(myRb.getId() , way.get(ii).getKey());
 									}
 								}
-
-//								List<myFruit> test1 = new ArrayList<myFruit>();
-//								List<String> qwer = game.getFruits();
-//								for (String string : qwer) {
-//									myFruit asdff = new myFruit();
-//									asdff.initFromJson(string);
-//									test1.add(asdff);
+//								if(timeLeft-game.timeToEnd()>56) 
+//								{
+//									game.move();
+//									timeLeft=game.timeToEnd(); 
 //								}
-//
-//								List<myRobot> test2 = new ArrayList<myRobot>();
-//								List<String> qwery = game.getRobots();
-//								for (String string : qwery) {
-//									myRobot wert = new myRobot();
-//									wert.botFromJSON(string);
-//									test2.add(wert);
-//								}
-								//																	ff.setFr(test1);
-								//																	ff.setrb(test2);
-								//
-								//									ff.paint();
 							}
 							ff.setFr(fr);
 							rb.clear();
@@ -2083,7 +2107,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 						String res = game.toString();
 						System.out.println(res);
 						exit=false;
-
 						th2.interrupt();				
 					}
 				});
@@ -2091,15 +2114,47 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			}
 			else 
 			{
-				JFrame jinput = new JFrame();
-				JOptionPane.showMessageDialog(jinput, "You're in the middle of a game! To exit, press x");
+				JFrame jinput3 = new JFrame();
+				JOptionPane.showMessageDialog(jinput3, "You're in the middle of a game! To exit, press x");
 			}
 			break;
 		default : break;
 		}
+		
 
 	}
 
+
+	private int func() {
+		int i =0 ;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = 
+			DriverManager.getConnection(SimpleDB.jdbcUrl, SimpleDB.jdbcUser, SimpleDB.jdbcUserPassword);
+			Statement statement = connection.createStatement();
+			String allCustomersQuery = "SELECT * FROM Logs WHERE UserID = 205682719 OR UserID = 205360803 OR UserID = 312282791 ;";
+			ResultSet resultSet = statement.executeQuery(allCustomersQuery);
+			
+			while(resultSet.next())
+			{
+				//if(resultSet.getInt("UserID") == 205682719 || resultSet.getInt("UserID") == 205360803 ||resultSet.getInt("UserID") == 312282791)
+					i++;
+				
+			}
+			resultSet.close();
+			statement.close();		
+			connection.close();		
+		}
+		
+		catch (SQLException sqle) {
+			System.out.println("SQLException: " + sqle.getMessage());
+			System.out.println("Vendor Error: " + sqle.getErrorCode());
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return i ;
+	}
 
 	/***************************************************************************
 	 *  Mouse interactions.
@@ -2319,34 +2374,279 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		gg = g;
 	}
 
-	/**
-	 * Test client.
-	 *
-	 * @param args the command-line arguments
-	 */
-	//	public static void main(String[] args) {
-	//		StdDraw.square(0.2, 0.8, 0.1);
-	//		StdDraw.filledSquare(0.8, 0.8, 0.2);
-	//		StdDraw.circle(0.8, 0.2, 0.2);
-	//
-	//		StdDraw.setPenColor(StdDraw.BOOK_RED);
-	//		StdDraw.setPenRadius(0.02);
-	//		StdDraw.arc(0.8, 0.2, 0.1, 200, 45);
-	//
-	//		// draw a blue diamond
-	//		StdDraw.setPenRadius();
-	//		StdDraw.setPenColor(StdDraw.BOOK_BLUE);
-	//		double[] x = { 0.1, 0.2, 0.3, 0.2 };
-	//		double[] y = { 0.2, 0.3, 0.2, 0.1 };
-	//		StdDraw.filledPolygon(x, y);
-	//
-	//		// text
-	//		StdDraw.setPenColor(StdDraw.BLACK);
-	//		StdDraw.text(0.2, 0.5, "black text");
-	//		StdDraw.setPenColor(StdDraw.WHITE);
-	//		StdDraw.text(0.8, 0.8, "white text");
-	//	}
+	
+	
+	public static String printLog() {
+		String[]arr=new String[11];
+		int[]arr2= new int[24];
+		int max0 = 0;
+		int max1 = 0;
+		int max3 = 0;
+		int max5 = 0;
+		int max9 = 0;
+		int max11 = 0;
+		int max13 = 0;
+		int max16 = 0;
+		int max19 = 0;
+		int max20 = 0;
+		int max23 = 0;
+       
+		boolean first_time0 = false;
+		boolean first_time1 = false;
+		boolean first_time3 = false;
+		boolean first_time5 = false;
+		boolean first_time9 = false;
+		boolean first_time11 = false;
+		boolean first_time13 = false;
+		boolean first_time16 = false;
+		boolean first_time19 = false;
+		boolean first_time20 = false;
+		boolean first_time23 = false;
 
+		String temp = "";
+        int arr_moves[] = {290,580,0,580,0,500,0,0,0,580,0,580,0,580,0,0,290,0,0,580,290,0,0,1140};
+        int arr_scores[] = {145,450,0,720,0,570,0,0,0,510,0,1050,0,310,0,0,235,0,0,250,200,0,0,1000};
+		int index = 0;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = 
+					DriverManager.getConnection(SimpleDB.jdbcUrl, SimpleDB.jdbcUser, SimpleDB.jdbcUserPassword);
+			Statement statement = connection.createStatement();
+			String allCustomersQuery = "SELECT * FROM Logs WHERE UserID=205682719;";
+			ResultSet resultSet = statement.executeQuery(allCustomersQuery);
+			while(resultSet.next())
+			{
+				if(resultSet.getInt("levelID")==0) 
+				{
+					if(first_time0==false &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")]) 
+					{
+						max0=resultSet.getInt("score");
+					    arr[0]="Game:"+0+"    score:"+max0+"   Moves:"+resultSet.getInt("moves");
+					}
+					else {
+					if(resultSet.getInt("score")>max0 &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")] && 
+					resultSet.getInt("score")>=arr_scores[resultSet.getInt("levelID")]) 
+					{
+				    max0=resultSet.getInt("score");
+				    arr[0]="Game:"+0+"    score:"+max0+"   Moves:"+resultSet.getInt("moves");
+			        }
+					}
+				    first_time0=true;
+	
+				}
+				if(resultSet.getInt("levelID")==1) 
+				{
+					if(first_time1==false &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")]) 
+					{
+						max1=resultSet.getInt("score");
+					    arr[1]="Game:"+1+"    score:"+max1+"   Moves:"+resultSet.getInt("moves");
+
+					}
+					else {
+					if(resultSet.getInt("score")>max1 &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")] && 
+					resultSet.getInt("score")>=arr_scores[resultSet.getInt("levelID")]) 
+					{
+				    max1=resultSet.getInt("score");
+				    arr[1]="Game:"+1+"    score:"+max1+"   Moves:"+resultSet.getInt("moves");
+
+			        }
+					}
+				    first_time1=true;
+
+				}
+				if(resultSet.getInt("levelID")==3) 
+				{
+					if(first_time3==false&&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")]) 
+					{
+						max1=resultSet.getInt("score");
+					    arr[2]="Game:"+3+"    score:"+max3+"   Moves:"+resultSet.getInt("moves");
+
+					}
+					else {
+					if(resultSet.getInt("score")>max3 &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")] && 
+					resultSet.getInt("score")>=arr_scores[resultSet.getInt("levelID")]) 
+					{
+				    max3=resultSet.getInt("score");
+				    arr[2]="Game:"+3+"    score:"+max3+"   Moves:"+resultSet.getInt("moves");
+
+
+			        }
+					}
+				    first_time3=true;
+					
+				}
+				if(resultSet.getInt("levelID")==5) 
+				{
+					if(first_time5==false && resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")]) 
+					{
+						max5=resultSet.getInt("score");
+					    arr[3]="Game:"+5+"    score:"+max5+"   Moves:"+resultSet.getInt("moves");
+					}
+					else {
+					if(resultSet.getInt("score")>max5 &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")] && 
+					resultSet.getInt("score")>=arr_scores[resultSet.getInt("levelID")]) 
+					{
+				    max5=resultSet.getInt("score");
+				    arr[3]="Game:"+5+"    score:"+max5+"   Moves:"+resultSet.getInt("moves");
+			        }
+				}
+				    first_time5=true;
+				}
+				if(resultSet.getInt("levelID")==9) 
+				{
+					if(first_time9==false &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")]) 
+					{
+						max9=resultSet.getInt("score");
+					    arr[4]="Game:"+9+"    score:"+max9+"   Moves:"+resultSet.getInt("moves");
+
+					}
+					else {
+					if(resultSet.getInt("score")>max9 &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")] && 
+					resultSet.getInt("score")>=arr_scores[resultSet.getInt("levelID")]) 
+					{
+				    max9=resultSet.getInt("score");
+				    arr[4]="Game:"+9+"    score:"+max9+"   Moves:"+resultSet.getInt("moves");
+
+			        }
+					}
+				    first_time9=true;
+					
+				}
+				if(resultSet.getInt("levelID")==11) 
+				{
+					if(first_time11==false &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")]) 
+					{
+						max11=resultSet.getInt("score");
+					    arr[5]="Game:"+11+"   score:"+max11+"  Moves:"+resultSet.getInt("moves");
+
+					}
+					else {
+					if(resultSet.getInt("score")>max11 &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")] && 
+					resultSet.getInt("score")>=arr_scores[resultSet.getInt("levelID")]) 
+					{
+				    max11=resultSet.getInt("score");
+				    arr[5]="Game:"+11+"   score:"+max11+"  Moves:"+resultSet.getInt("moves");
+
+			        }
+					}
+				    first_time11=true;
+				}
+				if(resultSet.getInt("levelID")==13) 
+				{
+					if(first_time13==false&&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")]) 
+					{
+						max13=resultSet.getInt("score");
+						arr[6]="Game:"+13+"   score:"+max13+"   Moves:"+resultSet.getInt("moves");
+					}
+					else {
+					if(resultSet.getInt("score")>max13 &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")] && 
+					resultSet.getInt("score")>=arr_scores[resultSet.getInt("levelID")]) 
+					{
+				    max13=resultSet.getInt("score");
+				    arr[6]="Game:"+13+"   score:"+max13+"   Moves:"+resultSet.getInt("moves");
+
+			        }
+					}
+				    first_time13=true;
+				}
+				if(resultSet.getInt("levelID")==16) 
+				{
+					if(first_time16==false &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")]) 
+					{
+						max16=resultSet.getInt("score");
+					    arr[7]="Game:"+16+"   score:"+max16+"   Moves:"+resultSet.getInt("moves");
+
+					}
+					else {
+					if(resultSet.getInt("score")>max16 &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")] && 
+					resultSet.getInt("score")>=arr_scores[resultSet.getInt("levelID")]) 
+					{
+				    max16=resultSet.getInt("score");
+				    arr[7]="Game:"+16+"   score:"+max16+"   Moves:"+resultSet.getInt("moves");
+					}
+			        }
+
+				    first_time16=true;
+				}
+				if(resultSet.getInt("levelID")==19) 
+				{
+					if(first_time19==false &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")] ) 
+					{
+						max19=resultSet.getInt("score");
+					    arr[8]="Game:"+19+"   score:"+max19+"   Moves:"+resultSet.getInt("moves");
+
+					}
+					else {
+					if(resultSet.getInt("score")>max19 &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")] && 
+					resultSet.getInt("score")>=arr_scores[resultSet.getInt("levelID")]) 
+					{
+				    max19=resultSet.getInt("score");
+				    arr[8]="Game:"+19+"   score:"+max19+"   Moves:"+resultSet.getInt("moves");
+
+			        }
+					}
+				    first_time19=true;
+				}
+				if(resultSet.getInt("levelID")==20) 
+				{
+					if(first_time20==false &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")]) 
+					{
+						max20=resultSet.getInt("score");
+					    arr[9]="Game:"+20+"   score:"+max20+"   Moves:"+resultSet.getInt("moves");
+
+					}
+					else {
+					if(resultSet.getInt("score")>max20 &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")] && 
+					resultSet.getInt("score")>=arr_scores[resultSet.getInt("levelID")]) 
+					{
+				    max20=resultSet.getInt("score");
+				    arr[9]="Game:"+20+"   score:"+max20+"   Moves:"+resultSet.getInt("moves");
+
+			        }
+					}
+				    first_time20=true;
+				}
+				if(resultSet.getInt("levelID")==23) 
+				{
+					if(first_time23==false &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")]) 
+					{
+						max23=resultSet.getInt("score");
+					    arr[10]="Game:"+23+"   score:"+max23+"  Moves:"+resultSet.getInt("moves");
+
+					}
+					else {
+					if(resultSet.getInt("score")>max23 &&  resultSet.getInt("moves")<=arr_moves[resultSet.getInt("levelID")] && 
+					resultSet.getInt("score")>=arr_scores[resultSet.getInt("levelID")]) 
+					{
+				    max23=resultSet.getInt("score");
+				    arr[10]="Game:"+23+"   score:"+max23+"  Moves:"+resultSet.getInt("moves");
+
+			        }
+					}
+				    first_time23=true;
+				}
+
+			}
+			for (int i = 0; i < arr.length; i++) {
+//				System.out.print(arr[i]+" \n");
+				temp+=arr[i]+"\n";
+			}
+			System.out.println(temp);
+			resultSet.close();
+			statement.close();		
+			connection.close();		
+		}
+		
+		catch (SQLException sqle) {
+			System.out.println("SQLException: " + sqle.getMessage());
+			System.out.println("Vendor Error: " + sqle.getErrorCode());
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return temp;
+	}
+     
 }
 
 

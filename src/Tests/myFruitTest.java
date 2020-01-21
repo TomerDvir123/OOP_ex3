@@ -22,12 +22,7 @@ class myFruitTest {
 		game_service game = Game_Server.getServer(2);
 		DGraph gg = new DGraph();
 		String g = game.getGraph();
-		try {
-			gg.init(g);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		gg.init(g);
 		List<String> fr = game.getFruits();
 		GamePar now = new GamePar(2, gg);
 
@@ -50,12 +45,7 @@ class myFruitTest {
 		game_service game = Game_Server.getServer(2);
 		DGraph gg = new DGraph();
 		String g = game.getGraph();
-		try {
-			gg.init(g);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		gg.init(g);
 		List<String> fr = game.getFruits();
 		GamePar now = new GamePar(2, gg);
 
@@ -77,12 +67,7 @@ class myFruitTest {
 		game_service game = Game_Server.getServer(2);
 		DGraph gg = new DGraph();
 		String g = game.getGraph();
-		try {
-			gg.init(g);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		gg.init(g);
 		List<String> fr = game.getFruits();
 		GamePar now = new GamePar(2, gg);
 
@@ -106,12 +91,7 @@ class myFruitTest {
 		game_service game = Game_Server.getServer(2);
 		DGraph gg = new DGraph();
 		String g = game.getGraph();
-		try {
-			gg.init(g);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		gg.init(g);
 		List<String> fr = game.getFruits();
 		GamePar now = new GamePar(2, gg);
 

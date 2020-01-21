@@ -37,7 +37,7 @@ public class SimpleDB {
 				Connection connection = 
 						DriverManager.getConnection(jdbcUrl, jdbcUser, jdbcUserPassword);
 				Statement statement = connection.createStatement();
-				String allCustomersQuery = "SELECT * FROM Logs;";
+				String allCustomersQuery = "SELECT * FROM Logs WHERE UserID=205682719;";
 				ResultSet resultSet = statement.executeQuery(allCustomersQuery);
 				
 				while(resultSet.next())
@@ -91,6 +91,7 @@ public class SimpleDB {
 		public static int allUsers() {
 			int ans = 0;
 			String allCustomersQuery = "SELECT * FROM Users;";
+
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				Connection connection = 

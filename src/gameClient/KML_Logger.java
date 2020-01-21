@@ -283,50 +283,49 @@ public class KML_Logger {
 					"	</Placemark>\r\n";
 			robot=robot+temp;
 		}
-	
+		String euro = "<name>ssss.kml</name>\r\n" + 
+				"	<StyleMap id=\"msn_euro\">\r\n" + 
+				"		<Pair>\r\n" + 
+				"			<key>normal</key>\r\n" + 
+				"			<styleUrl>#sn_euro</styleUrl>\r\n" + 
+				"		</Pair>\r\n" + 
+				"		<Pair>\r\n" + 
+				"			<key>highlight</key>\r\n" + 
+				"			<styleUrl>#sh_euro</styleUrl>\r\n" + 
+				"		</Pair>\r\n" + 
+				"	</StyleMap>\r\n" + 
+				"	<Style id=\"sn_euro\">\r\n" + 
+				"		<IconStyle>\r\n" + 
+				"			<scale>1.2</scale>\r\n" + 
+				"			<Icon>\r\n" + 
+				"				<href>http://maps.google.com/mapfiles/kml/shapes/euro.png</href>\r\n" + 
+				"			</Icon>\r\n" + 
+				"			<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
+				"		</IconStyle>\r\n" + 
+				"		<BalloonStyle>\r\n" + 
+				"		</BalloonStyle>\r\n" + 
+				"		<ListStyle>\r\n" + 
+				"		</ListStyle>\r\n" + 
+				"	</Style>\r\n" + 
+				"	<Style id=\"sh_euro\">\r\n" + 
+				"		<IconStyle>\r\n" + 
+				"			<scale>1.4</scale>\r\n" + 
+				"			<Icon>\r\n" + 
+				"				<href>http://maps.google.com/mapfiles/kml/shapes/euro.png</href>\r\n" + 
+				"			</Icon>\r\n" + 
+				"			<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
+				"		</IconStyle>\r\n" + 
+				"		<BalloonStyle>\r\n" + 
+				"		</BalloonStyle>\r\n" + 
+				"		<ListStyle>\r\n" + 
+				"		</ListStyle>\r\n" + 
+				"	</Style>";
 
-		String fruit = "" ;
+		String fruit = euro ;
 		//grap.getNode(mF.getsrc().getSrc()).getKey()
 		for (myFruit mF : all_fruit) {
 			if(mF.getType()==-1) {
-			String temp = "<name>ssss.kml</name>\r\n" + 
-					"	<StyleMap id=\"msn_euro\">\r\n" + 
-					"		<Pair>\r\n" + 
-					"			<key>normal</key>\r\n" + 
-					"			<styleUrl>#sn_euro</styleUrl>\r\n" + 
-					"		</Pair>\r\n" + 
-					"		<Pair>\r\n" + 
-					"			<key>highlight</key>\r\n" + 
-					"			<styleUrl>#sh_euro</styleUrl>\r\n" + 
-					"		</Pair>\r\n" + 
-					"	</StyleMap>\r\n" + 
-					"	<Style id=\"sn_euro\">\r\n" + 
-					"		<IconStyle>\r\n" + 
-					"			<scale>1.2</scale>\r\n" + 
-					"			<Icon>\r\n" + 
-					"				<href>http://maps.google.com/mapfiles/kml/shapes/euro.png</href>\r\n" + 
-					"			</Icon>\r\n" + 
-					"			<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
-					"		</IconStyle>\r\n" + 
-					"		<BalloonStyle>\r\n" + 
-					"		</BalloonStyle>\r\n" + 
-					"		<ListStyle>\r\n" + 
-					"		</ListStyle>\r\n" + 
-					"	</Style>\r\n" + 
-					"	<Style id=\"sh_euro\">\r\n" + 
-					"		<IconStyle>\r\n" + 
-					"			<scale>1.4</scale>\r\n" + 
-					"			<Icon>\r\n" + 
-					"				<href>http://maps.google.com/mapfiles/kml/shapes/euro.png</href>\r\n" + 
-					"			</Icon>\r\n" + 
-					"			<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>\r\n" + 
-					"		</IconStyle>\r\n" + 
-					"		<BalloonStyle>\r\n" + 
-					"		</BalloonStyle>\r\n" + 
-					"		<ListStyle>\r\n" + 
-					"		</ListStyle>\r\n" + 
-					"	</Style>\r\n" + 
-					"	<Placemark>\r\n" + 
+			String temp = "<Placemark>\r\n" + 
 					"		<name></name>\r\n" + 
 					"		<Camera>\r\n" + 
 					"			<longitude>45.30783826982074</longitude>\r\n" + 
