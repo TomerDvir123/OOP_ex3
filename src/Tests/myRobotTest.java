@@ -24,12 +24,7 @@ class myRobotTest {
 		game.addRobot(0);
 		DGraph gg = new DGraph();
 		String g = game.getGraph();
-		try {
-			gg.init(g);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		gg.init(g);
 		List<String> fr = game.getRobots();
 		GamePar now = new GamePar(2, gg);
 
@@ -54,12 +49,7 @@ class myRobotTest {
 		game.addRobot(0);
 		DGraph gg = new DGraph();
 		String g = game.getGraph();
-		try {
-			gg.init(g);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		gg.init(g);
 		List<String> fr = game.getRobots();
 		GamePar now = new GamePar(2, gg);
 
@@ -82,12 +72,7 @@ class myRobotTest {
 		game.addRobot(0);
 		DGraph gg = new DGraph();
 		String g = game.getGraph();
-		try {
-			gg.init(g);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		gg.init(g);
 		List<String> fr = game.getRobots();
 		GamePar now = new GamePar(2, gg);
 
@@ -112,12 +97,7 @@ class myRobotTest {
 		game.addRobot(0);
 		DGraph gg = new DGraph();
 		String g = game.getGraph();
-		try {
-			gg.init(g);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		gg.init(g);
 		List<String> fr = game.getRobots();
 		GamePar now = new GamePar(2, gg);
 
@@ -142,12 +122,7 @@ class myRobotTest {
 		game.addRobot(0);
 		DGraph gg = new DGraph();
 		String g = game.getGraph();
-		try {
-			gg.init(g);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		gg.init(g);
 		List<String> fr = game.getRobots();
 		GamePar now = new GamePar(2, gg);
 

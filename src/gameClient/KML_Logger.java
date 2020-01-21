@@ -22,6 +22,7 @@ public class KML_Logger {
 	GamePar now;
 	graph grap;
 	String all_kml="";
+	String ans;
 	public KML_Logger() {
 
 	}
@@ -439,5 +440,7 @@ public class KML_Logger {
 			e.printStackTrace();
 		}
 	}
-
+	public String getKML() {
+		return this.all_kml;
+	}
 }

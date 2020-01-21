@@ -30,7 +30,7 @@ public class DGraph implements graph,Serializable {
 	int count_mc = 0;
 
 
-	public void init(String check) throws IOException {
+	public void init(String check) {
 
 		DGraph grap = new DGraph();
 		// System.out.println(robot_json);

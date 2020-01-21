@@ -42,11 +42,9 @@ public class temp {
 		game_service game = Game_Server.getServer(23); // you have [0,23] games
 		String g = game.getGraph();
 		DGraph gg = new DGraph();
-		try {
+	
 			gg.init(g);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+	
 			
 		String info = game.toString();
 		System.out.println(info);

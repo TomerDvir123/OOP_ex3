@@ -197,8 +197,9 @@ public class MyGameGUI implements ActionListener, MouseListener,Serializable
 //         
 //    	
 //    }
-	public void result (String info) throws JSONException {
+	public void result (String info) {
 
+		try {
 		String temp = info.substring(1);
 		int y = temp.indexOf("{");
 		info = info.substring(0, y)+":[{"+info.substring(y+2, info.length()-2)+"}]}";
@@ -207,6 +208,10 @@ public class MyGameGUI implements ActionListener, MouseListener,Serializable
 		JSONObject empObj = new JSONObject();
 		empObj = json_fruit.getJSONObject(0);
 		this.temp2 = (int) empObj.get("grade");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

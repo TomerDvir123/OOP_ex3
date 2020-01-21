@@ -20,6 +20,7 @@ public class myFruit implements Fruits {
 		List<edge_data> alledges ;
 		graph graps;
 		edge_data src_edge;
+		boolean bool = false;
 		
 		//{"Fruit":{"value":5.0,"type":-1,"pos":"35.188900353135324,32.105320110855615,0.0"}}
 		//{"Fruit":[{"value":5.0,"type":-1,"pos":"35.188900353135324,32.105320110855615,0.0"}]}
@@ -90,6 +91,12 @@ public class myFruit implements Fruits {
 				
 			}
 			
+		}
+		public boolean getBool() {
+			return this.bool;
+		}
+		public void setBool() {
+			this.bool=true;
 		}
 		@Override
 

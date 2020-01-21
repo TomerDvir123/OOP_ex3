@@ -21,6 +21,7 @@ import dataStructure_ex3.DGraph;
 import dataStructure_ex3.Node;
 import dataStructure_ex3.edge_data;
 import dataStructure_ex3.graph;
+import gui.MyGameGUI;
 import utils.Point3D;
 import java.io.FileReader;
 import java.io.IOException;
@@ -53,12 +54,17 @@ public class GamePar implements Game_par {
 		game = Game_Server.getServer(this.scene);
 		this.grap=grap;
 	}
-	public void initFruit(List<String> fruit_info) throws JSONException {	
+	public void initFruit(List<String> fruit_info) {	
+		try {
 		for (int i = 0; i < fruit_info.size(); i++) {
 
 			myFruit temp = new myFruit(fruit_info.get(i),getedges(),grap);
+			
 			fr.add(temp);
 //			System.out.println(fr.get(i).toString());
+		}
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	} 
 	@Override
@@ -77,16 +83,22 @@ public class GamePar implements Game_par {
 		return edges;
 	}
 
-	public void initRobot(List<String> robot_info) throws JSONException {
+	public void initRobot(List<String> robot_info)  {
+		try {
 		for (int i = 0; i < robot_info.size(); i++) {
 			myRobot temp = new myRobot(robot_info.get(i));
 			rb.add(temp);
 //			System.out.println(rb.get(i).toString());
 		}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	public int numRobot(String info) throws JSONException
+	public int numRobot(String info)
 	{
 		int num = 0;
+		try {
+		
 		String temp = info.substring(1);
 		int y = temp.indexOf("{");
 		info = info.substring(0, y)+":[{"+info.substring(y+2, info.length()-2)+"}]}";
@@ -95,6 +107,11 @@ public class GamePar implements Game_par {
 		JSONObject empObj = new JSONObject();
 		empObj = sum_rob.getJSONObject(0);
 		num = (int) empObj.get("robots");
+		
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		return num;
 	}
 	@Override
