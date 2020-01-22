@@ -1713,10 +1713,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		}
 	}
 
-	
-	
-	
-	
+
+
+
+
 	//creation of kml file
 	KML_Logger kml = new KML_Logger();
 	Thread KMLt;
@@ -1746,10 +1746,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		});
 		KMLt.start();
 	}
-    /*
-     * all the following values used in actionPerformed
-     */
-  
+	/*
+	 * all the following values used in actionPerformed
+	 */
+
 	Thread th;         
 	Thread th2;
 	boolean isClicked;  
@@ -1801,7 +1801,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 			break;
 			/*this option shows:
-		     * number of games the we had played
+			 * number of games the we had played
 			 * 
 			 */
 		case "Num of games":
@@ -1838,8 +1838,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 								try
 								{	
-									
-									  //checking if the user puts in wrong number (not a number 0-23)
+
+									//checking if the user puts in wrong number (not a number 0-23)
 									num = Integer.parseInt(start);
 									if(num>23 || num <0) 
 									{
@@ -2064,14 +2064,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 						List<myFruit> fr = now.getfruit();
 						List<myRobot> rb = now.getrobot();
 						List<edge_data> edg =now.fruit_edges();
-						
+
 						//send details to the paint
 						ff.setFr(fr);
 						ff.setrb(rb);
 						ff.setFr_Edge(edg);
 						ff.setG(gge);
 						ff.initGUI();
-						//Game_Server.login(205682719);
+						Game_Server.login(205682719);
 
 						game.startGame();
 						KMLthread(game);
@@ -2082,7 +2082,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 						while(game.isRunning()) 
 						{
 							//the optimal score with minimal moves
-							
+
 							if(timeLeft-game.timeToEnd()>sleep) 
 							{
 								game.move();
@@ -2132,7 +2132,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 									List<node_data> way = algo.shortestPath(myRb.getSrc() , tempFru.getsrc().getSrc());
 									node_data nd = gge.getNode(tempFru.getsrc().getDest());
 									way.add(0, nd);
-									
+
 									FR.remove(tempFru);// remove the fruit that was selected
 									//move the robot to the fruit
 									for ( int ii = way.size()-2; ii >=0  ; ii--) {
@@ -2140,7 +2140,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 									}
 								}
 							}
-							
+
 							ff.setFr(fr);
 							rb.clear();
 							now.initRobot(robots_curr);
@@ -2152,7 +2152,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 						}
 						kml.saveKML();
-						//  game.sendKML(kml.getKML());
+						game.sendKML(kml.getKML());
 						System.out.println("sent kml");
 						String res = game.toString();
 						System.out.println(res);
@@ -2171,9 +2171,9 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		default : break;
 		}
 	}
-/*
- * this function returns number of games that were played 
- */
+	/*
+	 * this function returns number of games that were played 
+	 */
 	private int func() {
 		int i =0 ;
 		try {
