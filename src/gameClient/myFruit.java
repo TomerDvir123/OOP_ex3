@@ -29,7 +29,7 @@ public class myFruit implements Fruits {
 		public myFruit() {
 			// TODO Auto-generated constructor stub
 		}
-		
+		//read from JSON and keep the all information about the fruit
 		public myFruit(String info , List<edge_data> edge_for_edes,graph grap) throws JSONException {
 			this.graps=grap;
 			alledges = edge_for_edes;
@@ -51,8 +51,10 @@ public class myFruit implements Fruits {
 		//	System.out.println("src:"+this.src_edge.getSrc()+" dest:" +this.src_edge.getDest());
 			
 	}
+		/*check on which edges the fruit "sitting"
+		 * check on which direction the fruit "sitting"
+		 */
 		@Override
-
 		public void setedges(List<edge_data> coledg,Point3D fruit,graph grap)
 		{
 			double x_fruit=fruit.x();
@@ -85,12 +87,8 @@ public class myFruit implements Fruits {
 					else if(this.type==1 && ed.getSrc()<ed.getDest()) {
 						this.src_edge=ed;
 					}
-
-				}
-				
-				
-			}
-			
+				}						
+			}		
 		}
 		public boolean getBool() {
 			return this.bool;
@@ -126,7 +124,9 @@ public class myFruit implements Fruits {
 			}
 		
 
-		////
+		/*read from JSON and keep fruit information 
+		 * constructor for kml
+		 */
 		public void initFromJson(String json)
 		{
 			if(!json.isEmpty())
@@ -134,10 +134,6 @@ public class myFruit implements Fruits {
 				try
 				{
 					JSONObject obj = new JSONObject(json);
-					//			JSONArray fruits = obj.getJSONArray("Fruit");
-					//			for (int i = 0; i < fruits.length(); i++)
-					//			{
-					//				JSONObject CurrFruit = (JSONObject)fruits.get(i);
 					JSONObject CurrFruit = (JSONObject) obj.get("Fruit");
 					String pos = CurrFruit.getString("pos");
 					String[] arr = pos.split(",");
@@ -149,8 +145,7 @@ public class myFruit implements Fruits {
 					this.value = value;
 					int type = CurrFruit.getInt("type");
 					this.type = type;
-					//findEdge();
-					//			}
+					
 				}
 				catch (Exception e) {
 					// TODO: handle exception
@@ -158,5 +153,5 @@ public class myFruit implements Fruits {
 				}
 			}
 		}
-		//////
+	
 }

@@ -764,34 +764,22 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 		JMenu menu = new JMenu("Games");		
 		menuBar.add(menu);
-
-
 		JMenu menu2 = new JMenu("Info");		
 		menuBar.add(menu2);
-
-
 
 		JMenuItem menuItem1 = new JMenuItem("Manual");
 		menuItem1.addActionListener(std);
 		JMenuItem menuItem3 = new JMenuItem("Automatic");
 		menuItem3.addActionListener(std);
-
-		JMenuItem menuItem4 = new JMenuItem("Game info");
+		JMenuItem menuItem4 = new JMenuItem("Num of games");
 		menuItem4.addActionListener(std);
-
 		JMenuItem menuItem5 = new JMenuItem("Best results");
 		menuItem5.addActionListener(std);
 
-
 		menu.add(menuItem1);
-
 		menu.add(menuItem3);
-
 		menu2.add(menuItem4);
-
 		menu2.add(menuItem5);
-
-
 
 		return menuBar;
 	}
@@ -1725,9 +1713,12 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		}
 	}
 
-
+	
+	
+	
+	
+	//creation of kml file
 	KML_Logger kml = new KML_Logger();
-	//
 	Thread KMLt;
 	public void KMLthread(game_service game)
 	{
@@ -1738,12 +1729,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 				// TODO Auto-generated method stub
 				while(game.isRunning())
 				{
-					///////////////////////////////////
 					long timeToSleep = 100;
 					try {
 						Thread.sleep(timeToSleep);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					String start = java.time.LocalDate.now()+"T"+java.time.LocalTime.now();
@@ -1752,24 +1741,18 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 					String end = java.time.LocalDate.now() + "T" + current;
 					kml.restart_fr_rb(start ,end);
-
 				}
 			}
 		});
 		KMLt.start();
 	}
-
-
-
-
-
-
-	/**
-	 * This method cannot be called directly.
-	 */
-	Thread th;
+    /*
+     * all the following values used in actionPerformed
+     */
+  
+	Thread th;         
 	Thread th2;
-	boolean isClicked;
+	boolean isClicked;  
 	boolean thr1=false;
 	boolean thr2=false;
 	long time_game;
@@ -1777,16 +1760,23 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	boolean exit=false;
 	boolean sss=false;
 	@Override
-
+	/*
+	 * this function gets the option from the user and than acts according the option
+	 */
 	public void actionPerformed(ActionEvent e) {
 		String act = e.getActionCommand();
 		switch(act)
 		{
+		/*
+		 * this option shows:
+		 * 1.all the best results for every scrnario
+		 * 2.our location in the table for every scrnario
+		 */
 		case "Best results":
 			String[] ans = printLog();
 			String res = "Best results:\n";
-	
-			
+
+
 			int arr_moves[] = {290,580,0,580,0,500,0,0,0,580,0,580,0,580,0,0,290,0,0,580,290,0,0,1140};
 			int index=0;
 			for (int i = 0; i < 24 ; i++) {
@@ -1794,34 +1784,42 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 					ans[index]+="   rank: "+Ranking(i,arr_moves[i]);
 					index++;
 				}
-				
-			}
-			for (int i = 0; i < ans.length; i++) {
-				//				System.out.print(arr[i]+" \n");
-				if(i<ans.length-1) {
-				res+=ans[i]+"\n";
-				}
-				else {
-				res+="       \nMy stage:   "+ans[i];
-				}
-			}
-			
-			JFrame jinput5 = new JFrame();
-			jinput5.setTitle("Best results");
 
-			JOptionPane.showMessageDialog(jinput5,res);
+			}
+			StdDraw.clear();
+			StdDraw.setPenColor(Color.BLACK);
+			int yLine=30;
+			StdDraw.textLeft(ff.minx, ff.maxy, "Best results :");
+			for (int i = 0; i < ans.length-1; i++) {
+				res=ans[i];
+				StdDraw.textLeft(ff.minx, ff.maxy-yLine, res);
+				yLine+=35;
+			}
+			StdDraw.textLeft(ff.minx, ff.maxy-yLine-30, "My stage:"+ans[ans.length-1]);
+			StdDraw.show();
+
 
 			break;
-		case "Game info":
+			/*this option shows:
+		     * number of games the we had played
+			 * 
+			 */
+		case "Num of games":
 			//Game_Server.login(205682719); 
 			JFrame jinput = new JFrame();
 			int numOfGames = func();
 			String a = ""+numOfGames ;
-			JOptionPane.showMessageDialog(jinput, "Num of games: " +a+"\nCurrent stage: "+23);
+			JOptionPane.showMessageDialog(jinput, "Num of games: " +a);
 
 			break;
+			/*
+			 * in this option, the robots move by clicks of the user
+			 */
+			/////////////////////////////////////
+			//Manual option////////
+			///////////////////////////////////////
 		case "Manual":
-			if(!exit) {
+			if(!exit) {    //in case that the user tries to get out in the middle of game
 
 				thr1=true;
 				th = new Thread(new Runnable() {			
@@ -1840,11 +1838,12 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 								try
 								{	
+									
+									  //checking if the user puts in wrong number (not a number 0-23)
 									num = Integer.parseInt(start);
 									if(num>23 || num <0) 
 									{
 										JOptionPane.showMessageDialog(jinput, "Enter good Input : only a number 0-23 !   ");
-
 									}
 									else 
 									{
@@ -1869,6 +1868,9 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 								int sum = now.numRobot(ttt);
 								int i = 0;
 								int tempSum = sum;
+								/*
+								 * puts the robots inside the game
+								 */
 								while(tempSum>0)
 								{
 									game.addRobot(i);
@@ -1889,11 +1891,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 								ff.setFr_Edge(edg);
 								ff.setG(gge);
 								ff.initGUI();
-								game.startGame();
+								game.startGame();   // turn on 
 								myRobot choosen_rob = new myRobot();
 								while(game.isRunning()) 
 								{
-
 									exit = true;
 									time_game = game.timeToEnd();
 									ff.setTime(time_game);
@@ -1917,13 +1918,13 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 									ff.setFr_Edge(edg);
 									ff.setG(gge);
 									ff.initGUI();
-									Point3D click_XY = new Point3D(cx,cy);
-									if(!isClicked) 
+									Point3D click_XY = new Point3D(cx,cy);    // the location of the clicks that the user clicked
+									if(!isClicked)      //in case that the user does not choose robot
 									{
 										for(myRobot r : rb) 
 										{
 											Point3D curr_robot = r.getLocation();
-											if(curr_robot.distance2D(click_XY)<0.0004) {
+											if(curr_robot.distance2D(click_XY)<0.0004) {    
 												choosen_rob = r;
 												System.out.println("Robot was choosen!");
 												cx = 0;
@@ -1933,7 +1934,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 											}
 										}
 									}
-									else	
+									else	                                      // to choose the next step
 									{		     
 										for(node_data j : gge.getV() ) 
 										{
@@ -1956,7 +1957,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 									ff.initGUI();
 								}	
 								exit=false;
-
 							}
 							th.interrupt();
 
@@ -1967,7 +1967,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 				});
 				th.start();
 			}
-			else 
+			else      //in case that the user tries to get out in the middle of game
 			{
 				JFrame jinput2 = new JFrame();
 				JOptionPane.showMessageDialog(jinput2, "You're in the middle of a game! To exit, press x");
@@ -1975,8 +1975,11 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 			break;
 			/////////////////////////////////////
-			//computer////////
+			//Automatic option////////
 			///////////////////////////////////////
+			/*
+			 * in this case, the robots move Automatically
+			 */
 		case "Automatic":
 			if(!exit) {
 
@@ -1988,6 +1991,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 						boolean flag = false;
 						int num = -1;
 						JFrame jinput = new JFrame();
+						int keep_scenario = 0;
 						while(!flag)
 						{
 							String start = JOptionPane.showInputDialog(jinput,"Choose scenario");
@@ -1995,9 +1999,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 								break;
 							}
 
-							try
+							try    //checking if the user puts in wrong number (not a number 0-23)
 							{	
 								num = Integer.parseInt(start);
+								keep_scenario = num;
 								if(num>23 || num <0) 
 								{
 									JOptionPane.showMessageDialog(jinput, "Enter good Input : only a number 0-23 !   ");
@@ -2013,6 +2018,23 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 								JOptionPane.showMessageDialog(jinput, "Enter good Input : only a number 0-23 !   ");
 							}
 						}
+						//the optimal score with minimal moves
+						int sleep =0;
+						if (keep_scenario==0||keep_scenario==1||keep_scenario==3||keep_scenario==9||keep_scenario==11) {
+							sleep = 105;
+						}
+						else if (keep_scenario==5) {
+							sleep = 120;
+						}
+						else if (keep_scenario==13||keep_scenario==16||keep_scenario==19) {
+							sleep = 115;
+						}
+						else if (keep_scenario==20) {
+							sleep = 100;
+						}
+						else if (keep_scenario==23) {
+							sleep = 56;
+						}		
 						game_service game = Game_Server.getServer(num); // you have [0,23] games
 						String g = game.getGraph();
 						DGraph gge = new DGraph();
@@ -2024,12 +2046,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 						int sum = now.numRobot(ttt);
 						int tempSum = sum;
 						List <edge_data> ooo = now.fruit_edges();
-						//						for (edge_data edge_data : ooo) {
-						//						System.out.println("fr"+edge_data.getSrc());
-						//						}
-						while(tempSum>0)
+						while(tempSum>0) // add robot
 						{
-
 							game.addRobot(ooo.get(0).getSrc());
 							ooo.remove(0);
 							tempSum--;
@@ -2037,6 +2055,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 						List<String >nma = game.getRobots();
 						now.initRobot(nma);
 
+						//enter details to the kml file
 						kml.set_now(now);
 						kml.setGame(game);
 						kml.setGraph(gge);
@@ -2045,6 +2064,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 						List<myFruit> fr = now.getfruit();
 						List<myRobot> rb = now.getrobot();
 						List<edge_data> edg =now.fruit_edges();
+						
+						//send details to the paint
 						ff.setFr(fr);
 						ff.setrb(rb);
 						ff.setFr_Edge(edg);
@@ -2057,9 +2078,12 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 						Long timeLeft = game.timeToEnd();
 						List<myFruit> FR = new ArrayList<myFruit>();
+						//start game
 						while(game.isRunning()) 
 						{
-							if(timeLeft-game.timeToEnd()>50) 
+							//the optimal score with minimal moves
+							
+							if(timeLeft-game.timeToEnd()>sleep) 
 							{
 								game.move();
 								timeLeft=game.timeToEnd(); 
@@ -2082,6 +2106,9 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 							double mini = Double.MAX_VALUE;
 							Graph_Algo algo = new Graph_Algo();
 							algo.init(gge);
+							/*restart fruit list
+							 * to prevent duplicate robot for one fruit 
+							 */
 							if(FR.size()==0) 
 							{
 								now.initFruit(game.getFruits());
@@ -2094,27 +2121,26 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 									mini=Double.MAX_VALUE;
 									for (myFruit myFr : FR) 
 									{
+										//check the closest fruit to robot
 										if(algo.shortestPathDist(myRb.getSrc(), myFr.getsrc().getSrc()) +myFr.getsrc().getWeight() <mini && myFr.getBool()==false) {		
 											mini = algo.shortestPathDist(myRb.getSrc() , myFr.getsrc().getSrc())+myFr.getsrc().getWeight();
 											tempFru = myFr;
 										}
 									}
 									tempFru.setBool();
+									//keep the way from the robot to the fruit
 									List<node_data> way = algo.shortestPath(myRb.getSrc() , tempFru.getsrc().getSrc());
 									node_data nd = gge.getNode(tempFru.getsrc().getDest());
 									way.add(0, nd);
-
-									FR.remove(tempFru);
+									
+									FR.remove(tempFru);// remove the fruit that was selected
+									//move the robot to the fruit
 									for ( int ii = way.size()-2; ii >=0  ; ii--) {
 										game.chooseNextEdge(myRb.getId() , way.get(ii).getKey());
 									}
 								}
-								//								if(timeLeft-game.timeToEnd()>56) 
-								//								{
-								//									game.move();
-								//									timeLeft=game.timeToEnd(); 
-								//								}
 							}
+							
 							ff.setFr(fr);
 							rb.clear();
 							now.initRobot(robots_curr);
@@ -2144,11 +2170,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			break;
 		default : break;
 		}
-
-
 	}
-
-
+/*
+ * this function returns number of games that were played 
+ */
 	private int func() {
 		int i =0 ;
 		try {
@@ -2161,9 +2186,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 			while(resultSet.next())
 			{
-				//if(resultSet.getInt("UserID") == 205682719 || resultSet.getInt("UserID") == 205360803 ||resultSet.getInt("UserID") == 312282791)
 				i++;
-
 			}
 			resultSet.close();
 			statement.close();		
@@ -2400,10 +2423,13 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 	static int[] my_res = new int[24];
 
+	/*
+	 * this function goes through the data base games 
+	 * gets all our team members id games
+	 * returns our total games played In the server
+	 */
 	public static String[] printLog() {
 		String[]arr=new String[12];
-		int[]arr2= new int[24];
-		//		int[] my_res = new int[24];
 		int max0 = 0;
 		int max1 = 0;
 		int max3 = 0;
@@ -2431,7 +2457,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		String temp = "";
 		int arr_moves[] = {290,580,0,580,0,500,0,0,0,580,0,580,0,580,0,0,290,0,0,580,290,0,0,1140};
 		int arr_scores[] = {145,450,0,720,0,570,0,0,0,510,0,1050,0,310,0,0,235,0,0,250,200,0,0,1000};
-		int index = 0;
+
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = 
@@ -2661,11 +2687,11 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 				}
 
 			}
-			for (int i = 0; i < arr.length; i++) {
-				//				System.out.print(arr[i]+" \n");
+			for (int i = 0; i < arr.length; i++) 
+			{
 				temp+=arr[i]+"\n";
 			}
-			//System.out.println(temp);
+
 			resultSet.close();
 			statement.close();		
 			connection.close();		
@@ -2678,7 +2704,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		int count = 0;
 		arr[11]=""+23;
 		for (int i = 1; i < arr.length-1; i++) {
 			if(arr[i]=="" || arr[i]==null) {
@@ -2689,6 +2714,11 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		}
 		return arr;
 	}
+	/*
+	 * this function goes through all the users games in the server
+	 * counts all the diffrent id's that got better results than our max results
+	 * and returns our place in the server compared to all the other teams results 
+	 */
 	public static int Ranking(int levelID, int move) {
 		Hashtable<Integer, Integer> keep_id	= new Hashtable<Integer, Integer>();
 
@@ -2722,7 +2752,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		return keep_id.size();
+		return keep_id.size()+1;
 
 	}
 

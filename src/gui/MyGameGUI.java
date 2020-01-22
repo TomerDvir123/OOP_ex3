@@ -50,17 +50,17 @@ public class MyGameGUI implements ActionListener, MouseListener,Serializable
 	List<myRobot> robot = new ArrayList<myRobot>();
 	List<edge_data> edge_fruit = new ArrayList<edge_data>();
 
-	double minx = Integer.MAX_VALUE;
-	double miny = Integer.MAX_VALUE;
-	double maxx = Integer.MIN_VALUE;
-	double maxy = Integer.MIN_VALUE;
+	public double minx = Integer.MAX_VALUE;
+	public double miny = Integer.MAX_VALUE;
+	public double maxx = Integer.MIN_VALUE;
+	public double maxy = Integer.MIN_VALUE;
 	long temp1;   // time of game
 	int temp2;    // result of the game
 	 
 
 	public MyGameGUI()
 	{
-		grap = new DGraph();
+		grap = null;
 		initGUI();
 	}
 	public MyGameGUI(graph g )
@@ -70,12 +70,21 @@ public class MyGameGUI implements ActionListener, MouseListener,Serializable
 	}
 	public void initGUI()
 	{   
+		if(grap!=null)
+		{
 		StdDraw.enableDoubleBuffering();
 		minx = Integer.MAX_VALUE;
 		miny = Integer.MAX_VALUE;
 		maxx = Integer.MIN_VALUE;
 		maxy = Integer.MIN_VALUE;
-
+		}
+		else
+		{
+			minx = 0;
+			miny = 0;
+			maxx = 800;
+			maxy = 600;
+		}
 		if(!StdDraw.getAllready())
 		{
 			StdDraw.setCanvasSize(800, 600);

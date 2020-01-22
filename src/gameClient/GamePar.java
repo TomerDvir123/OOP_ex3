@@ -37,12 +37,11 @@ import org.json.JSONObject;
 import org.json.*;
 
 
-//-1 from high to low 
-//1 from low to high 
-
-
-
-
+/*
+ * Game par - is our main class for gathering all the information from the server and sends them
+ *  throughout all over the code
+ *  Game par - will save in every given moment all the fruits,robots , current game and current graph
+ */
 public class GamePar implements Game_par {
 	List<myFruit>fr = new ArrayList<myFruit>();
 	List<myRobot> rb = new ArrayList<myRobot>();
@@ -54,21 +53,26 @@ public class GamePar implements Game_par {
 		game = Game_Server.getServer(this.scene);
 		this.grap=grap;
 	}
+	/*
+	 * This function will Get json string from game server , 
+	 * and sends it myFruti class to init,
+	 * in the end the function will have list of all the current game fruits
+	 * and save them as local variable list of myFruits
+	 */
 	public void initFruit(List<String> fruit_info) {	
 		try {
-		for (int i = 0; i < fruit_info.size(); i++) {
+			for (int i = 0; i < fruit_info.size(); i++) {
 
-			myFruit temp = new myFruit(fruit_info.get(i),getedges(),grap);
-			
-			fr.add(temp);
-//			System.out.println(fr.get(i).toString());
-		}
+				myFruit temp = new myFruit(fruit_info.get(i),getedges(),grap);
+
+				fr.add(temp);
+			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	} 
 	@Override
-
+//return list of all edges in the graph
 	public List<edge_data> getedges() {
 		List<edge_data> edges = new ArrayList<edge_data>();
 		Collection<dataStructure_ex3.node_data> nodes = this.grap.getV();
@@ -82,42 +86,43 @@ public class GamePar implements Game_par {
 		}
 		return edges;
 	}
-
+	//add to our current local myRobot List the info about each robot 
 	public void initRobot(List<String> robot_info)  {
 		try {
-		for (int i = 0; i < robot_info.size(); i++) {
-			myRobot temp = new myRobot(robot_info.get(i));
-			rb.add(temp);
-//			System.out.println(rb.get(i).toString());
-		}
+			for (int i = 0; i < robot_info.size(); i++) 
+			{
+				myRobot temp = new myRobot(robot_info.get(i));
+				rb.add(temp);
+			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	//return the number robot in the game
 	public int numRobot(String info)
 	{
 		int num = 0;
 		try {
-		
-		String temp = info.substring(1);
-		int y = temp.indexOf("{");
-		info = info.substring(0, y)+":[{"+info.substring(y+2, info.length()-2)+"}]}";
-		JSONObject jsonObject = new JSONObject(info);
-		JSONArray sum_rob =jsonObject.getJSONArray("GameServer");
-		JSONObject empObj = new JSONObject();
-		empObj = sum_rob.getJSONObject(0);
-		num = (int) empObj.get("robots");
-		
+
+			String temp = info.substring(1);
+			int y = temp.indexOf("{");
+			info = info.substring(0, y)+":[{"+info.substring(y+2, info.length()-2)+"}]}";
+			JSONObject jsonObject = new JSONObject(info);
+			JSONArray sum_rob =jsonObject.getJSONArray("GameServer");
+			JSONObject empObj = new JSONObject();
+			empObj = sum_rob.getJSONObject(0);
+			num = (int) empObj.get("robots");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return num;
 	}
+	
+	//return list of edges with fruit on top
 	@Override
-
 	public List<edge_data> fruit_edges(){
-		
+
 		List<edge_data> edgefruit = new ArrayList<edge_data>();
 		for (myFruit nowfruit : fr)
 		{
@@ -127,7 +132,6 @@ public class GamePar implements Game_par {
 	}
 
 	@Override
-
 	public List<myFruit> getfruit() {
 		return fr;
 	}
@@ -136,5 +140,5 @@ public class GamePar implements Game_par {
 	public List<myRobot> getrobot() {
 		return rb;
 	}
-	
+
 }

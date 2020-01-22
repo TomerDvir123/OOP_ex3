@@ -15,7 +15,12 @@ import Server.game_service;
 import dataStructure_ex3.edge_data;
 import dataStructure_ex3.graph;
 import dataStructure_ex3.node_data;
-
+/*
+ * KML Logger - is our project creating KML files , saves 
+ * the class gets all nodes and edges  , than all the fruits and robots on every given moment
+ * and writes them into a KML format .kml file
+ * the file can be opened and viewed in google Earth pro app
+ */
 public class KML_Logger {
 
 	game_service game;
@@ -44,6 +49,10 @@ public class KML_Logger {
 	public game_service getGame(){
 		return game;
 	}
+	/*
+	 * this function starts to create our KML file by adding all the needed styles , vertexes and edges 
+	 * to the kml file
+	 */
 	public void openKML() {
 		Collection<node_data> keep_node = grap.getV();
 
@@ -209,51 +218,29 @@ public class KML_Logger {
 			}
 		}
 		String KML = upper+ans+edge;
-		//					now.initRobot(game.getRobots());
-		//					now.initFruit(game.getFruits());
-
-		//////
-//		String bottom = "	</Document>\r\n" + 
-//				"</kml>";
-//		
-//		KML = KML+bottom;
-		//all_kml= new StringBuilder();
 		all_kml+=KML;
-		//saveKML(KML);
-
-		//start save the file
 	}
-	
+	/*
+	 * this function writes in every given moment all the fruits and robots that exists in the game
+	 * the function gets the information using built-in JSON constructors 
+	 * and continues to make to file that open kml function started to create
+	 */
 	public void restart_fr_rb(String timeStart ,String timeEnd) {
 
-		
-//		try {
-//			now.initRobot(game.getRobots());
-//			now.initFruit(game.getFruits());
-//			
-//		} catch (JSONException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-//		List<myRobot> all_robot = now.getrobot();
-//		List<myFruit> all_fruit = now.getfruit();
 		List<myRobot> all_robot = new ArrayList<myRobot>();
 		List<myFruit> all_fruit = new ArrayList<myFruit>();
-		try {
-		
-		List<String> aweae = game.getRobots();
-		for (String string : aweae) {
-			
-			all_robot.add(new myRobot(string));
-		}
-		
-		List<String> qweqwe = game.getFruits();
-		for (String string : qweqwe) {
-			myFruit rrrrtt = new myFruit();
-			rrrrtt.initFromJson(string);
-			all_fruit.add(rrrrtt );
-		}
+		try {		
+			List<String> aweae = game.getRobots();
+			for (String string : aweae) 
+			{		
+				all_robot.add(new myRobot(string));
+			}		
+			List<String> qweqwe = game.getFruits();
+			for (String string : qweqwe) {
+				myFruit temp = new myFruit();
+				temp.initFromJson(string);
+				all_fruit.add(temp);
+			}
 		}
 		catch (Exception e) {
 			// TODO: handle exception
@@ -322,31 +309,30 @@ public class KML_Logger {
 				"	</Style>";
 
 		String fruit = euro ;
-		//grap.getNode(mF.getsrc().getSrc()).getKey()
 		for (myFruit mF : all_fruit) {
 			if(mF.getType()==-1) {
-			String temp = "<Placemark>\r\n" + 
-					"		<name></name>\r\n" + 
-					"		<Camera>\r\n" + 
-					"			<longitude>45.30783826982074</longitude>\r\n" + 
-					"			<latitude>38.61056557598812</latitude>\r\n" + 
-					"			<altitude>1575.476434584097</altitude>\r\n" + 
-					"			<heading>4.241565502288204</heading>\r\n" + 
-					"			<tilt>21.68983571564891</tilt>\r\n" + 
-					"			<roll>0.7847198150865365</roll>\r\n" + 
-					"			<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>\r\n" + 
-					"		</Camera>\r\n" + 
-					"		<TimeSpan>\r\n" + 
-					"            <begin>"+timeStart+"</begin>\r\n" + 
-					"            <end>"+timeEnd+"</end>\r\n" + 
-					"        </TimeSpan>\r\n" + 
-					"		<styleUrl>#msn_euro</styleUrl>\r\n" + 
-					"		<Point>\r\n" + 
-					"			<gx:drawOrder>1</gx:drawOrder>\r\n" + 
-					"			<coordinates>"+mF.getLocation().x()+","+mF.getLocation().y()+",0</coordinates>\r\n" + 
-					"		</Point>\r\n" + 
-					"	</Placemark>\r\n";
-			fruit = fruit + temp;
+				String temp = "<Placemark>\r\n" + 
+						"		<name></name>\r\n" + 
+						"		<Camera>\r\n" + 
+						"			<longitude>45.30783826982074</longitude>\r\n" + 
+						"			<latitude>38.61056557598812</latitude>\r\n" + 
+						"			<altitude>1575.476434584097</altitude>\r\n" + 
+						"			<heading>4.241565502288204</heading>\r\n" + 
+						"			<tilt>21.68983571564891</tilt>\r\n" + 
+						"			<roll>0.7847198150865365</roll>\r\n" + 
+						"			<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>\r\n" + 
+						"		</Camera>\r\n" + 
+						"		<TimeSpan>\r\n" + 
+						"            <begin>"+timeStart+"</begin>\r\n" + 
+						"            <end>"+timeEnd+"</end>\r\n" + 
+						"        </TimeSpan>\r\n" + 
+						"		<styleUrl>#msn_euro</styleUrl>\r\n" + 
+						"		<Point>\r\n" + 
+						"			<gx:drawOrder>1</gx:drawOrder>\r\n" + 
+						"			<coordinates>"+mF.getLocation().x()+","+mF.getLocation().y()+",0</coordinates>\r\n" + 
+						"		</Point>\r\n" + 
+						"	</Placemark>\r\n";
+				fruit = fruit + temp;
 			}
 			else if(mF.getType()==1) {
 				String temp = 	"<name>fruit.kml</name>\r\n" + 
@@ -411,12 +397,15 @@ public class KML_Logger {
 						"	</Placemark>\r\n";
 				fruit = fruit + temp;
 			}
-			String KML = robot+fruit;
-		
+			String KML = robot+fruit;		
 			all_kml+=KML;
-}
+		}
 	}
-
+	/*
+	 * the function takes all the gatherd info of our KML future file
+	 * and saves it into an NAME.kml file (NAME stands for the current scene of game ex: 0 , 0.kml)
+	 * the file can be accessed and viewed via Google earth pro
+	 */
 	public void saveKML() {
 		String bottom = "	</Document>\r\n" + 
 				"</kml>";
@@ -426,13 +415,6 @@ public class KML_Logger {
 			f1.write(all_kml);
 			f1.close();
 
-			//			FileOutputStream f = new FileOutputStream(new File("test1.kml"));
-			//			ObjectOutputStream o = new ObjectOutputStream(f);
-			//
-			//			// Write objects to file
-			//			o.writeObject(KML);
-			//			o.close();
-			//			f.close();
 			System.out.println("finished file");
 		} catch (RuntimeException | IOException e) {
 			// TODO Auto-generated catch block
